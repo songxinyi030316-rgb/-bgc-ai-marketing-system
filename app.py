@@ -5294,6 +5294,112 @@ def ranked_programs() -> list[dict]:
     return sorted(PROGRAMS, key=recommendation_score, reverse=True)
 
 
+def realistic_campaign_name(raw_name: str, segment: str = "Youth", goal: str = "Awareness") -> str:
+    """Avoid placeholder campaign names in the demo workflow."""
+
+    cleaned = (raw_name or "").strip()
+    placeholder_names = {"test", "testing", "demo", "abc", "asdf", "123", "untitled", "untitled campaign brief"}
+    if cleaned.lower() not in placeholder_names:
+        return cleaned
+
+    segment_defaults = {
+        "Children": "After-School Confidence & Safety Campaign",
+        "Youth": "Youth Future Pathways Campaign",
+        "50+": "50+ Connection & Wellness Campaign",
+        "Inclusion": "Inclusive Belonging Community Campaign",
+        "Supper Club": "Supper Club Community Table Campaign",
+        "MAP": "MAP Education Support Campaign",
+        "DCAC": "Youth Creator Showcase Campaign",
+        "Sports": "Sports Belonging & Teamwork Campaign",
+    }
+    if goal == "Volunteer recruitment":
+        return "Community Volunteer Recruitment Campaign"
+    if goal == "Donor support":
+        return "Donor Impact Storytelling Campaign"
+    if goal == "Partner update":
+        return "Partner Referral Awareness Campaign"
+    return segment_defaults.get(segment, "BGC Community Belonging Campaign")
+
+
+def campaign_intelligence_for_brief(brief: dict) -> dict:
+    """Create realistic mock campaign intelligence from intake fields."""
+
+    segment = brief.get("segment", "Youth")
+    goal = brief.get("goal", "Awareness")
+    audience_items = brief.get("target_audience") or ["Community", "Families"]
+    assets = brief.get("available_assets") or ["Photos"]
+    has_video = "Videos" in assets
+    has_testimonial = "Testimonials" in assets
+
+    segment_profiles = {
+        "Children": {
+            "proof": "Safe after-school routines, caring staff, and parent-friendly registration support",
+            "angle": "Help families see BGC as a trusted after-school place where children are safe, active, known by name, and supported after the school day.",
+            "required_assets": "Activity photo set, parent-facing CTA, staff safety quote",
+            "channels": ["Facebook", "Instagram", "Newsletter", "Partners"],
+        },
+        "Youth": {
+            "proof": "Mentorship, leadership opportunities, and youth confidence-building stories",
+            "angle": "Show how BGC helps youth build confidence, belonging, practical skills, and a stronger sense of future direction.",
+            "required_assets": "Youth story, mentor quote, short video moment",
+            "channels": ["Instagram", "Facebook", "Newsletter", "Partners"],
+        },
+        "MAP": {
+            "proof": "$1,000/year scholarship support, tutoring, and goal-setting mentorship",
+            "angle": "Connect education support to confidence, long-term goals, and the practical encouragement youth need to keep moving forward.",
+            "required_assets": "Student success story, scholarship proof point visual, caregiver quote",
+            "channels": ["Instagram", "Facebook", "Newsletter", "Partners"],
+        },
+        "Supper Club": {
+            "proof": "Community meals, volunteer participation, and welcoming shared-table moments",
+            "angle": "Position Supper Club as more than a meal: a warm community connection point where neighbours feel welcomed and supported.",
+            "required_assets": "Real meal photos, volunteer quote, simple referral CTA",
+            "channels": ["Facebook", "Newsletter", "Instagram", "Partners"],
+        },
+        "DCAC": {
+            "proof": "Youth-created media projects and digital skill-building workshops",
+            "angle": "Show the creative transformation from first idea to finished project, with youth voice at the center.",
+            "required_assets": "Before/after project clip, youth creator quote, workshop b-roll",
+            "channels": ["Instagram", "YouTube", "LinkedIn", "Partners"],
+        },
+        "Sports": {
+            "proof": "Teamwork, movement, coach encouragement, and access to recreation",
+            "angle": "Make sports feel like belonging, confidence, and healthy routine rather than only competition.",
+            "required_assets": "Team huddle clip, coach quote, action photo",
+            "channels": ["Instagram", "Facebook", "Partners", "Newsletter"],
+        },
+        "50+": {
+            "proof": "Wellness routines, social connection, and transportation/community access",
+            "angle": "Help older adults and caregivers see BGC as a welcoming connection point for routine, wellness, and community.",
+            "required_assets": "Program calendar, participant-friendly photo, wellness testimonial",
+            "channels": ["Newsletter", "Facebook", "Local Media Pitch", "Partners"],
+        },
+        "Inclusion": {
+            "proof": "Barrier-aware programming, accessible participation, and partner-supported belonging",
+            "angle": "Show inclusion as practical access, dignity, and a community where more people can participate fully.",
+            "required_assets": "Consent-safe program photo, partner quote, accessibility note",
+            "channels": ["LinkedIn", "Facebook", "Newsletter", "Partners"],
+        },
+    }
+    profile = segment_profiles.get(segment, segment_profiles["Youth"])
+
+    if goal == "Registration":
+        profile = {**profile, "angle": f"{profile['angle']} Make the next step clear for families and participants who are ready to register."}
+    elif goal == "Volunteer recruitment":
+        profile = {**profile, "angle": f"{profile['angle']} Add a volunteer-facing message that shows how one shift can create a real local moment."}
+    elif goal == "Donor support":
+        profile = {**profile, "angle": f"{profile['angle']} Lead with a human outcome and connect it to a donor-ready proof point."}
+    elif goal == "Partner update":
+        profile = {**profile, "angle": f"{profile['angle']} Frame the update for referral partners and community organizations that can help extend reach."}
+
+    return {
+        **profile,
+        "past_engagement": 91 if has_video or has_testimonial else 86,
+        "mission_alignment": 94 if goal in ["Donor support", "Partner update"] else 92,
+        "audience_fit": 93 if any(audience in audience_items for audience in ["Young parents", "Youth", "Donors"]) else 89,
+    }
+
+
 def custom_program_from_state() -> dict | None:
     """Build a temporary campaign object from the latest Program Intake fields."""
 
@@ -5302,17 +5408,23 @@ def custom_program_from_state() -> dict | None:
     intake_name = st.session_state.get("intake_program_name", "").strip()
     if not selected_name and not intake_name:
         return None
-    campaign_name = selected_name or intake_name
+    latest_brief = st.session_state.get("latest_intake_brief", {})
+    campaign_name = realistic_campaign_name(
+        selected_name or intake_name,
+        latest_brief.get("segment", "Youth"),
+        latest_brief.get("goal", "Awareness"),
+    )
     if campaign_name in known_names:
         return None
 
-    latest_brief = st.session_state.get("latest_intake_brief", {})
     assets = latest_brief.get("available_assets") or ["Photos"]
     if "None" in assets:
         assets = []
     audience_items = latest_brief.get("target_audience") or ["Community", "Families"]
     goal = latest_brief.get("goal", "Awareness")
-    key_message = latest_brief.get("key_message") or "A BGC London program update ready for community storytelling."
+    intelligence = campaign_intelligence_for_brief(latest_brief)
+    staff_message = latest_brief.get("key_message", "").strip()
+    angle = intelligence["angle"] if not staff_message or staff_message.lower().startswith("a welcoming bgc london program") else f"{intelligence['angle']} Staff note: {staff_message}"
 
     return {
         "name": campaign_name,
@@ -5322,13 +5434,13 @@ def custom_program_from_state() -> dict | None:
         "urgency": latest_brief.get("urgency", "High"),
         "assets": assets or ["Photos"],
         "asset_quality": latest_brief.get("asset_quality", "Medium"),
-        "past_engagement": 88,
-        "mission_alignment": 92,
-        "audience_fit": 90,
-        "proof": "New staff-submitted program brief",
-        "angle": key_message,
-        "required_assets": "Program photo, staff quote, clear next step",
-        "channels": ["Instagram", "Facebook", "Newsletter", "Partners"] if goal != "Partner update" else ["LinkedIn", "Newsletter", "Partners"],
+        "past_engagement": intelligence["past_engagement"],
+        "mission_alignment": intelligence["mission_alignment"],
+        "audience_fit": intelligence["audience_fit"],
+        "proof": intelligence["proof"],
+        "angle": angle,
+        "required_assets": intelligence["required_assets"],
+        "channels": intelligence["channels"] if goal != "Partner update" else ["LinkedIn", "Newsletter", "Partners"],
     }
 
 
@@ -5375,6 +5487,15 @@ def init_state() -> None:
         st.session_state.intake_program_name = st.session_state.selected_campaign
     if "latest_intake_brief" not in st.session_state:
         st.session_state.latest_intake_brief = {}
+    normalized_current = realistic_campaign_name(
+        st.session_state.selected_campaign,
+        st.session_state.latest_intake_brief.get("segment", "Youth"),
+        st.session_state.latest_intake_brief.get("goal", "Awareness"),
+    )
+    if normalized_current != st.session_state.selected_campaign:
+        st.session_state.selected_campaign = normalized_current
+        st.session_state.intake_program_name = normalized_current
+        st.session_state.latest_intake_brief["program_name"] = normalized_current
     if "planner_items" not in st.session_state:
         st.session_state.planner_items = ["MAP scholarship post", "After-school parent post"]
     if "active_page" not in st.session_state:
@@ -6570,8 +6691,6 @@ def intake_page() -> None:
         st.markdown("### Internal Campaign Brief")
         st.markdown('<div class="form-section-title">Program Basics</div>', unsafe_allow_html=True)
         program_name = st.text_input("Program name", key="intake_program_name")
-        if program_name.strip():
-            st.session_state.selected_campaign = program_name.strip()
         st.markdown('<div class="helper-text">Use the public-facing program name staff and families recognize.</div>', unsafe_allow_html=True)
         basic_cols = st.columns(2)
         with basic_cols[0]:
@@ -6605,8 +6724,11 @@ def intake_page() -> None:
         with asset_cols[1]:
             urgency = st.select_slider("Urgency level", options=["Low", "Medium", "High"], value="High")
         st.markdown('<div class="helper-text">Higher quality visuals and testimonials improve campaign confidence.</div>', unsafe_allow_html=True)
+        display_program_name = realistic_campaign_name(program_name, segment, goal)
+        if display_program_name:
+            st.session_state.selected_campaign = display_program_name
         current_brief = {
-            "program_name": program_name.strip() or "Untitled campaign brief",
+            "program_name": display_program_name or "BGC Community Belonging Campaign",
             "segment": segment,
             "activity_timing": activity,
             "program_date": program_date,
