@@ -3392,6 +3392,137 @@ BROAD_ONLINE_SIGNALS = [
     },
 ]
 
+OFFLINE_ACTIVATIONS = [
+    {
+        "name": "Backpack Campaign",
+        "goal": "Create 300 backpacks for families in need before back-to-school season.",
+        "audience": "Families, donors, school partners, campus volunteers",
+        "partners": ["Local schools", "Western clubs", "Fanshawe clubs", "Local media"],
+        "tactics": ["QR donation posters", "Partner school donation links", "Local news pitch", "Campus club volunteers"],
+        "digital_support": ["Milestone counter", "Packing day Reel", "Donor thank-you posts", "School newsletter blurb"],
+        "cta": "Sponsor one backpack",
+        "impact": "300 students start school with practical supplies and a stronger sense of support.",
+        "message": "One backpack. One student. One stronger start.",
+        "milestone": "0 / 300 backpacks",
+    },
+    {
+        "name": "Angel Tree — BGC Edition",
+        "goal": "Help kids receive sports equipment, activity supplies, or wishlist items.",
+        "audience": "Donors, local businesses, sports families, community supporters",
+        "partners": ["Local businesses", "Sports clubs", "Community sponsors", "Drop-off locations"],
+        "tactics": ["Community sponsor wall", "Sports equipment donation drive", "Business drop-off points", "Donor thank-you content"],
+        "digital_support": ["Wishlist graphics", "Sponsor spotlight posts", "Reveal Reel", "LinkedIn partner thank-you"],
+        "cta": "Fulfill one child’s wish",
+        "impact": "More children can participate, play, and feel included without cost barriers.",
+        "message": "Kids deserve the chance to simply be kids.",
+        "milestone": "Wishlist items matched weekly",
+    },
+    {
+        "name": "Campus Ambassador Program",
+        "goal": "Get Western and Fanshawe students involved in youth-created content and volunteer promotion.",
+        "audience": "Western students, Fanshawe students, student clubs, youth volunteers",
+        "partners": ["Western clubs", "Fanshawe clubs", "Student unions", "Youth ambassadors"],
+        "tactics": ["Student club partnerships", "Short-form video challenges", "Youth ambassador content", "Volunteer recruitment push"],
+        "digital_support": ["Ambassador intro Reel", "Volunteer story carousel", "Campus email copy", "TikTok-style challenge prompt"],
+        "cta": "Join the ambassador team",
+        "impact": "A sustainable volunteer and content pipeline that keeps BGC visible on campus.",
+        "message": "Future leaders help future leaders.",
+        "milestone": "10 ambassador leads this month",
+    },
+]
+
+OFFLINE_RECOMMENDATIONS = [
+    {
+        "name": "Backpack Campaign",
+        "why": "Back-to-school timing gives BGC a clear community need, simple donation ask, and memorable local story.",
+        "audience_fit": 94,
+        "partner_fit": 92,
+        "donor_potential": 91,
+        "content_potential": 88,
+        "local_awareness": 95,
+        "best_action": "Launch QR donation posters with a weekly backpack milestone counter.",
+    },
+    {
+        "name": "Angel Tree BGC Edition",
+        "why": "The giving concept is familiar, but the BGC version connects donations directly to play, belonging, and childhood dignity.",
+        "audience_fit": 88,
+        "partner_fit": 90,
+        "donor_potential": 94,
+        "content_potential": 86,
+        "local_awareness": 89,
+        "best_action": "Recruit local business drop-off points and publish a sponsor wall.",
+    },
+    {
+        "name": "Campus Ambassador Program",
+        "why": "Western and Fanshawe students can help BGC generate youth-relevant content while building a volunteer pipeline.",
+        "audience_fit": 86,
+        "partner_fit": 95,
+        "donor_potential": 78,
+        "content_potential": 96,
+        "local_awareness": 90,
+        "best_action": "Invite campus clubs to co-create a short-form volunteer challenge.",
+    },
+    {
+        "name": "Community Story Booth",
+        "why": "A portable story booth can capture short participant, volunteer, and donor moments at events without needing a full production day.",
+        "audience_fit": 83,
+        "partner_fit": 86,
+        "donor_potential": 84,
+        "content_potential": 94,
+        "local_awareness": 88,
+        "best_action": "Set up at Supper Club, sports events, and campus partner days.",
+    },
+    {
+        "name": "Donor Impact Breakfast",
+        "why": "A small in-person breakfast creates donor visibility, relationship-building, and reusable proof-point content.",
+        "audience_fit": 80,
+        "partner_fit": 88,
+        "donor_potential": 96,
+        "content_potential": 82,
+        "local_awareness": 85,
+        "best_action": "Pair one impact stat with one participant story and one clear funding need.",
+    },
+]
+
+OFFLINE_TO_DIGITAL_IDEAS = [
+    {
+        "moment": "Backpack Campaign",
+        "reel": "Packing 300 backpacks in fast cuts.",
+        "hook": "What does a stronger school year look like?",
+        "cta": "Scan the QR code to sponsor one backpack.",
+        "fit": "Parents: Facebook + Instagram + school newsletters",
+    },
+    {
+        "moment": "Angel Tree",
+        "reel": "Sports equipment donation reveal.",
+        "hook": "Every kid deserves the chance to play.",
+        "cta": "Help fulfill one child’s wish.",
+        "fit": "Donors: LinkedIn + impact reports + email updates",
+    },
+    {
+        "moment": "Campus Ambassador Program",
+        "reel": "Western/Fanshawe students explaining why they volunteer.",
+        "hook": "Future leaders help future leaders.",
+        "cta": "Join the ambassador team.",
+        "fit": "Youth: TikTok/Reels + peer ambassadors",
+    },
+    {
+        "moment": "50+ Wellness Outreach",
+        "reel": "A morning routine montage with calendar reminders and friendly arrivals.",
+        "hook": "Connection is wellness too.",
+        "cta": "Ask about this month’s 50+ wellness calendar.",
+        "fit": "50+ adults: Facebook + newsletters + referrals",
+    },
+]
+
+DONOR_PROOF_POINTS = [
+    "100 meals served today",
+    "$1,000/year MAP scholarship support",
+    "40,000 rides provided to older adults",
+    "sports equipment access for kids",
+    "mentorship and confidence-building stories",
+]
+
 VIRAL_MODES = {
     "Parent Engagement": {
         "audience": "parents and caregivers",
@@ -5280,46 +5411,62 @@ def render_generated_content_panel(text: str, channel: str, tone: str, score_dat
             badge_cols[2].badge(f"{score_data['overall']} Score", color="yellow")
 
         st.divider()
-        content_cols = st.columns([0.62, 0.38], gap="large")
-        with content_cols[0]:
-            with st.container(border=True, key=f"ai_hook_{panel_key}"):
-                st.caption("HOOK")
-                st.markdown(f"#### {parts['hook'][:220]}")
-            if parts["body"]:
-                with st.container(border=True, key=f"ai_body_{panel_key}"):
-                    st.caption("BODY")
-                    st.markdown(parts["body"])
+        with st.container(border=True, key=f"ai_hook_{panel_key}"):
+            st.caption("HOOK")
+            st.markdown(f"#### {parts['hook'][:220]}")
+        if parts["body"]:
+            with st.container(border=True, key=f"ai_body_{panel_key}"):
+                st.caption("DRAFT PREVIEW")
+                st.markdown(parts["body"])
+
+        insight_tabs = st.tabs(
+            [
+                "Content score analysis",
+                "Emotional breakdown",
+                "Why this works",
+                "Hashtags & CTA",
+                "Multi-platform adaptation",
+            ]
+        )
+        with insight_tabs[0]:
+            st.metric("Overall Content Score", f"{score_data['overall']} / 100")
+            st.progress(score_data["overall"] / 100)
+            st.caption(f"Expected performance: {score_data['expected']} · Best platform: {score_data['best_platform']}")
+        with insight_tabs[1]:
+            score_keys = {
+                "Emotional strength": "emotional",
+                "Shareability": "shareability",
+                "Parent engagement": "parent",
+                "Authenticity": "authenticity",
+            }
+            for label, value in score_subset.items():
+                with st.container(key=f"score_{score_keys[label]}_{panel_key}"):
+                    st.caption(f"{label}: {value}")
+                    st.progress(value / 100)
+        with insight_tabs[2]:
+            bullet_colors = ["green", "blue", "green", "orange", "green"]
+            for color, item in zip(bullet_colors, why_items):
+                st.markdown(f":{color}[●] {item}")
+            with st.expander("What could improve this content?"):
+                for item in score_data["feedback"]:
+                    st.markdown(f"- {item}")
+        with insight_tabs[3]:
             if parts["cta"]:
-                with st.container(border=True, key=f"ai_cta_{panel_key}"):
-                    st.caption("CTA")
-                    st.markdown(f"**{parts['cta']}**")
+                st.markdown("**CTA**")
+                st.info(parts["cta"])
             if parts["hashtags"]:
-                with st.container(border=True, key=f"ai_hashtags_{panel_key}"):
-                    st.caption("HASHTAGS")
-                    st.markdown(parts["hashtags"])
-
-        with content_cols[1]:
-            with st.container(border=True, key=f"ai_score_card_{panel_key}"):
-                st.caption("CONTENT SCORE")
-                st.metric("Overall", f"{score_data['overall']} / 100")
-                score_keys = {
-                    "Emotional strength": "emotional",
-                    "Shareability": "shareability",
-                    "Parent engagement": "parent",
-                    "Authenticity": "authenticity",
-                }
-                for label, value in score_subset.items():
-                    with st.container(key=f"score_{score_keys[label]}_{panel_key}"):
-                        st.caption(f"{label}: {value}")
-                        st.progress(value / 100)
-            with st.container(border=True, key=f"ai_why_card_{panel_key}"):
-                st.caption("WHY THIS WORKS")
-                bullet_colors = ["green", "blue", "green", "orange", "green"]
-                for color, item in zip(bullet_colors, why_items):
-                    st.markdown(f":{color}[●] {item}")
+                st.markdown("**Hashtags**")
+                st.caption(parts["hashtags"])
+        with insight_tabs[4]:
+            st.markdown(
+                "- Adapt the hook as the first on-screen text for Reels.\n"
+                "- Use the proof point as the newsletter or partner email anchor.\n"
+                "- Keep the CTA consistent across channels so the campaign feels memorable.\n"
+                "- Pair the draft with one consent-safe visual moment."
+            )
 
 
-def channel_copy(program: dict, channel: str, tone: str) -> str:
+def channel_copy(program: dict, channel: str, tone: str, emotional_angle: str = "Belonging", audience_frame: str = "Parents") -> str:
     """Generate deterministic mock channel copy without external AI calls."""
 
     tone_profile = {
@@ -5352,13 +5499,32 @@ def channel_copy(program: dict, channel: str, tone: str) -> str:
     proof = f"Proof point: {program['proof']}."
     angle_sentence = f"{program['name']} supports {program['angle'].lower()}"
     audience_sentence = f"The strongest audience for this message is {program['audience'].lower()}."
+    angle_guidance = {
+        "Confidence": "Frame the story around someone gaining confidence after being supported by BGC.",
+        "Belonging": "Frame the story around a participant realizing they have a place where they are known and welcomed.",
+        "Safety": "Frame the story around trust, reliable routines, and caring adults.",
+        "Future success": "Frame the story around long-term goals, momentum, and a next step becoming possible.",
+        "Community support": "Frame the story around neighbours, staff, partners, and donors showing up together.",
+        "Kids being kids": "Frame the story around play, joy, friendship, and the freedom to simply participate.",
+        "Donor impact": "Frame the story around how generosity becomes practical local change.",
+    }[emotional_angle]
+    audience_guidance = {
+        "Parents": "Speak to safety, trust, support systems, development, and emotional reassurance.",
+        "Youth": "Speak to identity, belonging, opportunity, aspiration, and the feeling of being taken seriously.",
+        "Older adults": "Speak to routine, wellness, connection, dignity, and community.",
+        "Donors": "Speak to impact, transformation, credibility, proof points, and measurable outcomes.",
+    }[audience_frame]
+    transformation_line = (
+        "Lead with transformation, not announcement: a person arrives unsure, receives steady support, "
+        "and leaves with more confidence, connection, or momentum."
+    )
 
     snippets = {
         "Instagram": (
             f"{tone_profile['hook']}\n\n"
             f"{tone_profile['context']} {angle_sentence} "
             f"Think of the real-life moments behind the campaign: walking into a familiar room, being greeted by name, getting help with a question, sharing a meal, joining a team, or seeing a creative idea come to life. "
-            f"{proof} "
+            f"{angle_guidance} {audience_guidance} {proof} "
             f"This post should feel human first and promotional second, with a real program moment leading the story.\n\n"
             f"{tone_profile['cta']}\n\n"
             "#BGCLondon #Belonging #Community #YouthOpportunity"
@@ -5367,21 +5533,21 @@ def channel_copy(program: dict, channel: str, tone: str) -> str:
             f"{tone_profile['hook']}\n\n"
             f"{program['name']} is one way BGC London helps create belonging, confidence, and connection for local families. "
             f"{angle_sentence} For parents, caregivers, and community members, the value is not only the program activity itself; it is the reliable support system around it. "
-            f"{proof} {audience_sentence}\n\n"
+            f"{transformation_line} {angle_guidance} {proof} {audience_sentence}\n\n"
             "If you know a family, youth, volunteer, partner, or neighbour who should hear about this, please share this update. "
             f"{tone_profile['cta']}"
         ),
         "LinkedIn": (
             f"{program['name']} reflects BGC London's broader role as a community organization focused on inclusion, opportunity, and practical support across generations.\n\n"
             f"This campaign highlights {program['angle'].lower()} It is a strong fit for partners and community stakeholders because it connects a clear local need with an established program response. "
-            f"{proof} The campaign can also help partners understand where referrals, awareness, volunteer support, or funding can make a visible difference.\n\n"
+            f"{angle_guidance} {proof} The campaign can also help partners understand where referrals, awareness, volunteer support, or funding can make a visible difference.\n\n"
             "For organizations, funders, and community leaders, this is an opportunity to amplify work that is already trusted by families and participants. "
             "Connect with BGC London to learn how partnership can help extend the reach of this program."
         ),
         "Newsletter": (
             f"Featured program: {program['name']}\n\n"
             f"{tone_profile['hook']} This month, BGC London is highlighting {program['name']} because it speaks directly to the kind of support our community asks for: programs that are welcoming, practical, and rooted in belonging. "
-            f"{angle_sentence} {proof}\n\n"
+            f"{angle_sentence} {transformation_line} {proof}\n\n"
             f"{audience_sentence} A newsletter feature can give readers more context than a social post: who the program is for, what kind of moment it creates, and why it matters now. "
             "This is also a good place to include a real quote, a program photo, or a simple next-step link.\n\n"
             f"{tone_profile['cta']}"
@@ -5391,12 +5557,12 @@ def channel_copy(program: dict, channel: str, tone: str) -> str:
             "Headline 2: BGC London Programs\n"
             f"Headline 3: Support, Belonging, Opportunity\n"
             f"Description 1: Explore {program['segment']} programs at BGC London that help people connect with trusted support close to home.\n"
-            f"Description 2: {program['angle']} Learn more, ask questions, or find the right next step today."
+            f"Description 2: {program['angle']} {emotional_angle} starts with support. Learn more today."
         ),
         "Partner Email": (
             f"Hello,\n\n"
             f"BGC London is sharing a campaign update about {program['name']}, and we would appreciate your help getting it to the right people in the community. "
-            f"{angle_sentence} {proof}\n\n"
+            f"{angle_sentence} {angle_guidance} {proof}\n\n"
             f"This update is especially relevant for {program['audience'].lower()}. If someone in your network could benefit, please consider sharing the program information, making a referral, or connecting them with BGC London. "
             "Even a simple forward from a trusted partner can help a family, youth, participant, or volunteer discover support at the right time.\n\n"
             f"{tone_profile['cta']}\n\n"
@@ -5405,7 +5571,7 @@ def channel_copy(program: dict, channel: str, tone: str) -> str:
         "Local Media Pitch": (
             f"Story idea: BGC London's {program['name']} is helping address {program['angle'].lower()}\n\n"
             f"This is a timely local story because it connects community need with practical support, real participant experiences, and the broader role BGC London plays across children, youth, families, and older adults. "
-            f"{proof} A strong media angle could focus on one human story, one program moment, and one clear community outcome.\n\n"
+            f"{angle_guidance} {proof} A strong media angle could focus on one human story, one program moment, and one clear community outcome.\n\n"
             "Possible visuals include program activity photos, a staff or participant quote, and a short explanation of how local residents can get involved or learn more. "
             "BGC London can provide background, program context, and suggested interview contacts where appropriate."
         ),
@@ -5413,13 +5579,21 @@ def channel_copy(program: dict, channel: str, tone: str) -> str:
     return snippets[channel]
 
 
-def content_variation(program: dict, channel: str, tone: str, version: str) -> str:
+def content_variation(
+    program: dict,
+    channel: str,
+    tone: str,
+    version: str,
+    emotional_angle: str = "Belonging",
+    audience_frame: str = "Parents",
+) -> str:
     """Return a predefined rewrite variation, with a safe fallback for other campaigns."""
 
-    original = channel_copy(program, channel, tone)
+    original = channel_copy(program, channel, tone, emotional_angle, audience_frame)
     base_context = (
         f"{program['name']} supports {program['angle'].lower()} "
-        f"The campaign should speak to {program['audience'].lower()} and include this proof point: {program['proof']}."
+        f"The campaign should speak to {program['audience'].lower()}, use a {emotional_angle.lower()} angle, "
+        f"frame the audience as {audience_frame.lower()}, and include this proof point: {program['proof']}."
     )
     fallback_variations = {
         "original": original,
@@ -5615,78 +5789,101 @@ def dashboard_page() -> None:
                     st.session_state.planner_items.append(item)
                 st.success("Added to planner.")
 
-        st.markdown("### System Workflow")
-        steps = [
-            ("📝", "1", "Intake", "Ready"),
-            ("✨", "2", "Recommend", "In progress"),
-            ("✍️", "3", "Create Content", "Ready"),
-            ("📅", "4", "Plan", "Needs input"),
-            ("📊", "5", "Measure", "Ready"),
-        ]
-        workflow_blocks = []
-        for index, (icon, number, title, status) in enumerate(steps):
-            status_class = "ready" if status == "Ready" else "progress" if status == "In progress" else "needs"
-            active_class = " dashboard-workflow-card-v2-active" if status == "In progress" else ""
-            workflow_blocks.append(
-                f"""
-                <div class="dashboard-workflow-card-v2{active_class}">
-                    <div class="dashboard-workflow-step-v2">Step {html.escape(number)}</div>
-                    <div class="dashboard-workflow-title-v2">{icon} {html.escape(title)}</div>
-                    <div class="dashboard-workflow-status-v2 dashboard-workflow-status-{status_class}-v2">
-                        {html.escape(status)}
+        with st.expander("System workflow", expanded=False):
+            steps = [
+                ("📝", "1", "Intake", "Ready"),
+                ("✨", "2", "Recommend", "In progress"),
+                ("✍️", "3", "Create Content", "Ready"),
+                ("📅", "4", "Plan", "Needs input"),
+                ("📊", "5", "Measure", "Ready"),
+            ]
+            workflow_blocks = []
+            for index, (icon, number, title, status) in enumerate(steps):
+                status_class = "ready" if status == "Ready" else "progress" if status == "In progress" else "needs"
+                active_class = " dashboard-workflow-card-v2-active" if status == "In progress" else ""
+                workflow_blocks.append(
+                    f"""
+                    <div class="dashboard-workflow-card-v2{active_class}">
+                        <div class="dashboard-workflow-step-v2">Step {html.escape(number)}</div>
+                        <div class="dashboard-workflow-title-v2">{icon} {html.escape(title)}</div>
+                        <div class="dashboard-workflow-status-v2 dashboard-workflow-status-{status_class}-v2">
+                            {html.escape(status)}
+                        </div>
                     </div>
-                </div>
-                """
+                    """
+                )
+                if index < len(steps) - 1:
+                    workflow_blocks.append('<div class="dashboard-workflow-arrow-v2">→</div>')
+
+            st.markdown(
+                f'<div class="dashboard-workflow-timeline">{"".join(workflow_blocks)}</div>',
+                unsafe_allow_html=True,
             )
-            if index < len(steps) - 1:
-                workflow_blocks.append('<div class="dashboard-workflow-arrow-v2">→</div>')
 
-        st.markdown(
-            f'<div class="dashboard-workflow-timeline">{"".join(workflow_blocks)}</div>',
-            unsafe_allow_html=True,
-        )
-
-        st.markdown("### Quick Status")
-        status_cols = st.columns(4)
-        quick_status = [
-            ("✍️", "5", "Drafts ready"),
-            ("📂", "2", "Missing assets"),
-            ("📅", "3", "Scheduled campaigns"),
-            ("📍", "Downtown London", "Strongest engagement"),
-        ]
-        for index, (col, (icon, value, label)) in enumerate(zip(status_cols, quick_status)):
-            with col:
-                with st.container(border=True, key=f"dashboard_quick_status_{index}"):
-                    st.caption(icon)
-                    st.metric(label, value)
+        with st.expander("Quick status", expanded=False):
+            status_cols = st.columns(4)
+            quick_status = [
+                ("✍️", "5", "Drafts ready"),
+                ("📂", "2", "Missing assets"),
+                ("📅", "3", "Scheduled campaigns"),
+                ("📍", "Downtown London", "Strongest engagement"),
+            ]
+            for index, (col, (icon, value, label)) in enumerate(zip(status_cols, quick_status)):
+                with col:
+                    with st.container(border=True, key=f"dashboard_quick_status_{index}"):
+                        st.caption(icon)
+                        st.metric(label, value)
 
     with right:
-        st.markdown("### Today’s Actions")
-        actions = [
-            ("Generate MAP Instagram draft", "Ready"),
-            ("Request student quote asset", "Needs Assets"),
-            ("Add Supper Club post to calendar", "Draft"),
-            ("Review viral content idea", "Ready"),
-        ]
-        with st.container(border=True, key="dashboard_actions_panel"):
-            for index, (action, status) in enumerate(actions):
-                with st.container(border=True, key=f"dashboard_action_row_{index}"):
-                    row_left, row_right = st.columns([0.66, 0.34])
-                    row_left.write(f"**{action}**")
-                    row_right.markdown(status_badge(status), unsafe_allow_html=True)
+        with st.expander("Today’s actions", expanded=True):
+            actions = [
+                ("Generate MAP Instagram draft", "Ready"),
+                ("Request student quote asset", "Needs Assets"),
+                ("Add Supper Club post to calendar", "Draft"),
+                ("Review viral content idea", "Ready"),
+            ]
+            with st.container(border=True, key="dashboard_actions_panel"):
+                for index, (action, status) in enumerate(actions):
+                    with st.container(border=True, key=f"dashboard_action_row_{index}"):
+                        row_left, row_right = st.columns([0.66, 0.34])
+                        row_left.write(f"**{action}**")
+                        row_right.markdown(status_badge(status), unsafe_allow_html=True)
 
-        st.markdown("### Client-Validated Priorities")
-        priorities = [
-            ("Fun social content", "Short-form Reels and trend support"),
-            ("Shared communication", "Department updates in one place"),
-            ("Weekly/monthly calendar", "Campaigns and activities visible"),
-            ("Asset contribution", "Photos and clips from staff"),
-        ]
-        with st.container(border=True, key="dashboard_priorities_panel"):
-            for index, (title, note) in enumerate(priorities):
-                with st.container(border=True, key=f"dashboard_priority_item_{index}"):
-                    st.write(f"**✓ {title}**")
-                    st.caption(note)
+        with st.expander("Validated priorities", expanded=False):
+            priorities = [
+                ("Fun social content", "Short-form Reels and trend support"),
+                ("Shared communication", "Department updates in one place"),
+                ("Weekly/monthly calendar", "Campaigns and activities visible"),
+                ("Asset contribution", "Photos and clips from staff"),
+            ]
+            with st.container(border=True, key="dashboard_priorities_panel"):
+                for index, (title, note) in enumerate(priorities):
+                    with st.container(border=True, key=f"dashboard_priority_item_{index}"):
+                        st.write(f"**✓ {title}**")
+                        st.caption(note)
+
+        with st.expander("Donor engagement", expanded=False):
+            with st.container(border=True, key="dashboard_donor_tools_panel"):
+                donor_tools = [
+                    ("Quarterly report", "Package proof points for supporters"),
+                    ("Story library", "Save participant-safe impact moments"),
+                    ("Value match", "Match donors to causes they care about"),
+                    ("Proof points", DONOR_PROOF_POINTS[0]),
+                ]
+                for index, (tool, note) in enumerate(donor_tools):
+                    row = st.columns([0.18, 0.82])
+                    row[0].badge("●", color="green" if index != 3 else "orange")
+                    row[1].markdown(f"**{tool}**")
+                    row[1].caption(note)
+
+        with st.expander("Positioning insight", expanded=False):
+            with st.container(border=True, key="dashboard_positioning_panel"):
+                st.markdown("**BGC’s marketing challenge is not only low reach.**")
+                st.caption("It is a positioning and memorability challenge.")
+                value_cols = st.columns(2)
+                values = ["mentorship", "belonging", "confidence", "meals", "scholarships", "leadership", "wellness", "community transformation"]
+                for index, value in enumerate(values):
+                    value_cols[index % 2].badge(value.title(), color="green" if index % 3 else "orange")
 
 
 def intake_page() -> None:
@@ -5904,6 +6101,54 @@ def recommendation_page() -> None:
 
     header("AI Campaign Recommendation")
     campaign_recommendation_hero()
+    recommendation_mode = st.radio(
+        "Recommendation mode",
+        ["Digital Campaign", "Offline Activation", "Hybrid Campaign"],
+        horizontal=True,
+        help="Switch between channel-first campaign recommendations and real-world community activation ideas.",
+    )
+    if recommendation_mode != "Digital Campaign":
+        st.subheader(f"{recommendation_mode} Recommendations")
+        st.caption("Mock scoring combines community visibility, donor appeal, partnership fit, and content potential.")
+        rec_cols = st.columns(2)
+        for index, item in enumerate(OFFLINE_RECOMMENDATIONS):
+            overall = round(
+                (
+                    item["local_awareness"]
+                    + item["donor_potential"]
+                    + item["partner_fit"]
+                    + item["content_potential"]
+                )
+                / 4
+            )
+            with rec_cols[index % 2]:
+                with st.container(border=True, key=f"offline_rec_{recommendation_mode}_{index}"):
+                    st.badge(f"{overall} overall score", color="green")
+                    st.markdown(f"### {item['name']}")
+                    st.write(item["why"])
+                    metric_cols = st.columns(2)
+                    metric_cols[0].metric("Visibility", item["local_awareness"])
+                    metric_cols[1].metric("Donor appeal", item["donor_potential"])
+                    st.caption("Partner fit")
+                    st.progress(item["partner_fit"] / 100)
+                    st.caption("Content potential")
+                    st.progress(item["content_potential"] / 100)
+                    st.markdown(f"**Recommended next step:** {item['best_action']}")
+        st.subheader("Offline Idea Fit")
+        rows = [
+            {
+                "Campaign": item["name"],
+                "Audience Fit": item["audience_fit"],
+                "Partner Fit": item["partner_fit"],
+                "Donor Potential": item["donor_potential"],
+                "Content Potential": item["content_potential"],
+                "Local Awareness": item["local_awareness"],
+            }
+            for item in OFFLINE_RECOMMENDATIONS
+        ]
+        st.dataframe(rows, width="stretch", hide_index=True)
+        return
+
     ranked = ranked_programs()
     if "selected_recommendation" not in st.session_state:
         st.session_state.selected_recommendation = st.session_state.selected_campaign
@@ -5951,40 +6196,58 @@ def recommendation_page() -> None:
                 st.session_state.planner_items.append(item)
             st.success("Added to the mock planner.")
 
-    st.subheader("Campaign Comparison")
-    grid_cols = st.columns(3)
-    for index, program in enumerate(ranked):
-        with grid_cols[index % 3]:
-            rank = index + 1
-            active = program["name"] == selected_program["name"]
-            active_class = " recommendation-grid-card-active" if active else ""
-            filled_dots = min(5, max(1, round(recommendation_score(program) / 20)))
-            dots = "".join(
-                f'<span class="indicator-dot {"indicator-dot-on" if dot < filled_dots else ""}"></span>'
-                for dot in range(5)
-            )
-            urgency_kind = "softgreen" if program["urgency"] == "High" else "navy"
-            st.markdown(
-                f"""
-                <div class="recommendation-grid-card{active_class}">
-                    <div class="recommendation-card-top">
-                        <div><span class="rank-pill">#{rank}</span><div class="recommendation-card-title">{program['name']}</div></div>
+    reason_tabs = st.tabs(["Why this campaign", "Audience fit", "Asset readiness", "Offline activation", "Donor opportunity"])
+    with reason_tabs[0]:
+        st.write(f"{top_program['angle']} The timing, proof point, and channel fit make this the strongest near-term campaign.")
+    with reason_tabs[1]:
+        st.metric("Audience fit", f"{top_program['audience_fit']}%")
+        st.caption(top_program["audience"])
+    with reason_tabs[2]:
+        st.metric("Asset readiness", f"{asset_score(top_program)}%")
+        st.caption(", ".join(top_program["assets"]))
+    with reason_tabs[3]:
+        st.write("Hybrid or offline support can extend the campaign through partner referrals, school/community visibility, and real-world proof points.")
+        st.badge("Community visibility", color="green")
+        st.badge("Local partner fit", color="orange")
+    with reason_tabs[4]:
+        st.write("Use the campaign proof point as the donor-facing memory hook, then repeat it across newsletter, LinkedIn, and partner updates.")
+        st.badge("Impact proof", color="green")
+
+    with st.expander("Compare with other campaigns", expanded=False):
+        st.subheader("Campaign Comparison")
+        grid_cols = st.columns(3)
+        for index, program in enumerate(ranked):
+            with grid_cols[index % 3]:
+                rank = index + 1
+                active = program["name"] == selected_program["name"]
+                active_class = " recommendation-grid-card-active" if active else ""
+                filled_dots = min(5, max(1, round(recommendation_score(program) / 20)))
+                dots = "".join(
+                    f'<span class="indicator-dot {"indicator-dot-on" if dot < filled_dots else ""}"></span>'
+                    for dot in range(5)
+                )
+                urgency_kind = "softgreen" if program["urgency"] == "High" else "navy"
+                st.markdown(
+                    f"""
+                    <div class="recommendation-grid-card{active_class}">
+                        <div class="recommendation-card-top">
+                            <div><span class="rank-pill">#{rank}</span><div class="recommendation-card-title">{program['name']}</div></div>
+                        </div>
+                        <div>{badge(str(recommendation_score(program)) + ' score', 'softgreen')} {badge(program['urgency'] + ' urgency', urgency_kind)}</div>
+                        <div class="recommendation-card-meta">
+                            <div class="recommendation-card-chip"><div class="kpi-label">Audience</div>{program['audience']}</div>
+                            <div class="recommendation-card-chip"><div class="kpi-label">Asset readiness</div>{asset_score(program)}%</div>
+                        </div>
+                        <div class="indicator-dots">{dots}</div>
+                        <div class="progress-row" style="grid-template-columns:76px 1fr 38px;margin:0.35rem 0;"><span>Assets</span><div class="mini-progress"><span style="width:{asset_score(program)}%;"></span></div><span>{asset_score(program)}%</span></div>
                     </div>
-                    <div>{badge(str(recommendation_score(program)) + ' score', 'softgreen')} {badge(program['urgency'] + ' urgency', urgency_kind)}</div>
-                    <div class="recommendation-card-meta">
-                        <div class="recommendation-card-chip"><div class="kpi-label">Audience</div>{program['audience']}</div>
-                        <div class="recommendation-card-chip"><div class="kpi-label">Asset readiness</div>{asset_score(program)}%</div>
-                    </div>
-                    <div class="indicator-dots">{dots}</div>
-                    <div class="progress-row" style="grid-template-columns:76px 1fr 38px;margin:0.35rem 0;"><span>Assets</span><div class="mini-progress"><span style="width:{asset_score(program)}%;"></span></div><span>{asset_score(program)}%</span></div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-            with st.container(key=f"rec_select_button_{index}"):
-                if st.button("Select", key=f"select-rec-{program['name']}", use_container_width=False):
-                    st.session_state.selected_recommendation = program["name"]
-                    st.rerun()
+                    """,
+                    unsafe_allow_html=True,
+                )
+                with st.container(key=f"rec_select_button_{index}"):
+                    if st.button("Select", key=f"select-rec-{program['name']}", use_container_width=False):
+                        st.session_state.selected_recommendation = program["name"]
+                        st.rerun()
 
     channel_tags = " ".join(badge(channel, "navy") for channel in selected_program["channels"])
     st.subheader("Selected Campaign Detail")
@@ -6051,6 +6314,18 @@ def viral_content_engine_page() -> None:
         "Identify trend signals, match them to BGC programs, and turn ideas into filmable short-form content.",
     )
     viral_engine_hero()
+
+    with st.expander("Offline Moment → Viral Content", expanded=False):
+        st.caption("Translate real-world community activations into trend-ready short-form content and channel plans.")
+        offline_tabs = st.tabs([idea["moment"] for idea in OFFLINE_TO_DIGITAL_IDEAS])
+        for index, (tab, idea) in enumerate(zip(offline_tabs, OFFLINE_TO_DIGITAL_IDEAS)):
+            with tab:
+                st.badge(idea["moment"], color="orange" if index < 2 else "green")
+                st.markdown(f"**Reel idea:** {idea['reel']}")
+                st.caption(f"Hook: {idea['hook']}")
+                st.markdown(f"**CTA:** {idea['cta']}")
+                st.caption(idea["fit"])
+
     mode = st.radio(
         "Trend mode",
         ["Parent Engagement", "Youth Engagement", "Volunteer Recruitment", "Donor Storytelling", "Community Awareness"],
@@ -6081,21 +6356,13 @@ def viral_content_engine_page() -> None:
     )
 
     st.subheader("Current Viral Content Signals")
-    trend_cols = st.columns(2)
     for index, (trend, why, platform, audience, adaptation) in enumerate(VIRAL_TRENDS[mode]):
-        with trend_cols[index % 2]:
-            st.markdown(
-                f"""
-                <div class="viral-trend-card">
-                    {badge('Trend signal', 'softgreen')} <span class="platform-pill">{platform}</span>
-                    <h3 style="margin:0.55rem 0 0.35rem;">{trend}</h3>
-                    <p><strong>Why it performs well:</strong> {why}</p>
-                    <p><strong>Best audience:</strong> {audience}</p>
-                    <p style="margin-bottom:0;"><strong>Suggested BGC adaptation:</strong> {adaptation}</p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        with st.expander(f"{trend} · {platform}", expanded=index == 0):
+            st.badge("Trend signal", color="green")
+            st.badge(platform, color="blue")
+            st.write(f"**Why it performs well:** {why}")
+            st.write(f"**Best audience:** {audience}")
+            st.write(f"**Suggested BGC adaptation:** {adaptation}")
 
     st.subheader("Best Program for Current Trends")
     match_cols = st.columns(3)
@@ -6455,6 +6722,32 @@ def content_studio_page() -> None:
             )
         return
 
+    framework_cols = st.columns([0.48, 0.52], gap="large")
+    with framework_cols[0]:
+        emotional_angle = st.selectbox(
+            "Emotional campaign angle",
+            ["Confidence", "Belonging", "Safety", "Future success", "Community support", "Kids being kids", "Donor impact"],
+            index=1,
+        )
+    with framework_cols[1]:
+        audience_frame = st.radio(
+            "Audience framing",
+            ["Parents", "Youth", "Older adults", "Donors"],
+            horizontal=True,
+        )
+    with st.expander("Quick message examples"):
+        example_cols = st.columns(3)
+        examples = [
+            "More than a program.",
+            "A place to belong after school.",
+            "Future leaders start here.",
+            "100 meals served today.",
+            "One student. One scholarship. One future changed.",
+            "40,000 rides provided to older adults.",
+        ]
+        for index, example in enumerate(examples):
+            example_cols[index % 3].badge(example, color="green" if index % 2 else "orange")
+
     tone = st.radio("Tone controls", ["Warm", "Informational", "Donor-focused", "Parent-friendly", "Youth-focused"], horizontal=True)
     st.markdown(
         f"""
@@ -6474,7 +6767,9 @@ def content_studio_page() -> None:
             channel_key = channel.lower().replace(" ", "_").replace("/", "_")
             key = draft_key(selected_name, channel)
             asset_context_key = f"{key}::asset"
+            message_context_key = f"{key}::message_framework"
             active_asset_name = selected_asset["name"] if selected_asset else None
+            message_signature = f"{tone}|{emotional_angle}|{audience_frame}|{active_asset_name}"
 
             def with_asset_context(text: str) -> str:
                 if not selected_asset:
@@ -6484,10 +6779,13 @@ def content_studio_page() -> None:
                     f"with the angle '{selected_asset.get('use_for', 'campaign support')}'."
                 )
 
-            if key not in st.session_state or st.session_state.get(asset_context_key) != active_asset_name:
-                draft = with_asset_context(content_variation(program, channel, tone, "original"))
+            if key not in st.session_state or st.session_state.get(message_context_key) != message_signature:
+                draft = with_asset_context(
+                    content_variation(program, channel, tone, "original", emotional_angle, audience_frame)
+                )
                 st.session_state[key] = draft
                 st.session_state[asset_context_key] = active_asset_name
+                st.session_state[message_context_key] = message_signature
 
             score_data = content_score(st.session_state[key], channel, tone, program)
             render_generated_content_panel(st.session_state[key], channel, tone, score_data, channel_key)
@@ -6515,9 +6813,10 @@ def content_studio_page() -> None:
                             st.success("Saved to the mock content workspace.")
                         else:
                             st.session_state[key] = with_asset_context(
-                                content_variation(program, channel, tone, variation_map[action])
+                                content_variation(program, channel, tone, variation_map[action], emotional_angle, audience_frame)
                             )
                             st.session_state[asset_context_key] = active_asset_name
+                            st.session_state[message_context_key] = message_signature
                             st.toast(f"{action} applied to this draft.")
                             st.rerun()
 
@@ -6625,6 +6924,48 @@ def planner_page() -> None:
         unsafe_allow_html=True,
     )
 
+    st.subheader("Community Activation Planner")
+    st.caption("Plan offline campaigns, partnerships, donation drives, ambassador programs, and the digital content that supports them.")
+    activation_type = st.selectbox(
+        "Campaign type",
+        [
+            "Digital campaign",
+            "Offline community activation",
+            "Hybrid campaign",
+            "Donation drive",
+            "School / campus partnership",
+            "Ambassador program",
+        ],
+        index=2,
+    )
+    st.badge(f"Planning mode: {activation_type}", color="green")
+    activation_tabs = st.tabs([campaign["name"].replace(" — BGC Edition", "") for campaign in OFFLINE_ACTIVATIONS] + ["Community Partnerships"])
+    for index, (tab, campaign) in enumerate(zip(activation_tabs[:3], OFFLINE_ACTIVATIONS)):
+        with tab:
+            with st.container(border=True, key=f"community_activation_{index}"):
+                st.badge(campaign["name"], color="orange" if index == 0 else "green")
+                st.markdown(f"### {campaign['message']}")
+                st.caption(campaign["goal"])
+                summary_cols = st.columns(2)
+                summary_cols[0].markdown(f"**Target audience:** {campaign['audience']}")
+                summary_cols[1].markdown(f"**Best CTA:** {campaign['cta']}")
+                with st.expander("Offline tactics", expanded=False):
+                    for tactic in campaign["tactics"][:4]:
+                        st.caption(f"• {tactic}")
+                with st.expander("Partners and digital support", expanded=False):
+                    st.markdown(f"**Potential partners:** {', '.join(campaign['partners'][:3])}")
+                    st.markdown(f"**Digital support content:** {', '.join(campaign['digital_support'][:3])}")
+                st.progress(0 if index == 0 else 0.35 if index == 1 else 0.18)
+                st.caption(f"Milestone: {campaign['milestone']}")
+                st.info(campaign["impact"])
+    with activation_tabs[3]:
+        st.markdown("### Community Partnerships")
+        st.caption("Use this tab to connect campaign ideas to schools, campus groups, business drop-off points, and local media.")
+        partner_cols = st.columns(3)
+        for index, label in enumerate(["Schools", "Western / Fanshawe", "Local Businesses"]):
+            with partner_cols[index]:
+                st.metric(label, ["Donation links", "Student volunteers", "Drop-off points"][index])
+
     st.subheader("Regional Intelligence Dashboard")
     targeting_mode = st.radio(
         "Outreach intelligence mode",
@@ -6662,20 +7003,21 @@ def planner_page() -> None:
             help="Select a region to update the focused recommendation panel.",
         )
         selected_region = next(region for region in LONDON_HEATMAP if region["area"] == selected_region_name)
-        left_regions, right_focus = st.columns([0.62, 0.38], gap="large")
+        left_regions, right_focus = st.columns([0.36, 0.64], gap="large")
         with left_regions:
-            region_cols = st.columns(2)
-            for index, region in enumerate(LONDON_HEATMAP):
-                with region_cols[index % 2]:
+            with st.container(border=True, key="region_selector_summary"):
+                st.caption("Selected region")
+                st.markdown(f"### {selected_region['area']}")
+                st.progress(selected_region["heat"] / 100)
+                st.caption(f"{selected_region['heat']} / 100 heat score")
+                st.badge(selected_region["awareness"], color=region_colors.get(selected_region["area"], "green"))
+            with st.expander("Browse all regional cards", expanded=False):
+                for index, region in enumerate(LONDON_HEATMAP):
+                    heat_label = "High" if region["heat"] >= 80 else "Medium" if region["heat"] >= 70 else "Emerging"
                     with st.container(border=True, key=f"region_intel_card_{index}"):
-                        heat_label = "High" if region["heat"] >= 80 else "Medium" if region["heat"] >= 70 else "Emerging"
                         st.badge(region["area"], icon="📍", color=region_colors.get(region["area"], "green"))
-                        st.caption("Heat score")
-                        st.markdown(f"## {region['heat']} / 100")
-                        st.progress(region["heat"] / 100)
-                        st.caption(f"{heat_label} engagement · {region['awareness']}")
-                        st.write(f"**Recommendation:** {region['campaign']}")
-                        st.caption(region["engagement"])
+                        st.write(f"**{region['heat']} / 100** · {heat_label} engagement")
+                        st.caption(region["campaign"])
         with right_focus:
             with st.container(border=True, key="region_focus_panel"):
                 st.badge("Focused recommendation", icon="🎯", color="green")
@@ -6687,6 +7029,8 @@ def planner_page() -> None:
                 st.write(f"**Recommended campaign:** {selected_region['campaign']}")
                 st.caption(selected_region["opportunity"])
                 st.write(f"**Awareness:** {selected_region['awareness']}")
+                with st.expander("Suggested partnerships and local activation ideas", expanded=False):
+                    st.markdown("- School newsletter or referral partner mention.\n- Local business poster or QR handout.\n- Community story booth or volunteer photo moment.\n- Partner email with one clear CTA.")
     else:
         st.markdown("### Broad Online Engagement")
         st.caption(
@@ -6759,7 +7103,7 @@ def message_board_page() -> None:
     ]
     posted_messages = st.session_state.department_messages
 
-    left, main = st.columns([0.24, 0.76], gap="large")
+    left, main, context = st.columns([0.22, 0.52, 0.26], gap="large")
     with left:
         st.subheader("Department Channels")
         for index, (channel, unread, preview) in enumerate(channels):
@@ -6836,14 +7180,24 @@ def message_board_page() -> None:
             messages = [item for item in messages if any(tag in allowed_tags for tag in item["tags"])]
 
         for index, item in enumerate(messages):
-            with st.container(border=True, key=f"message_update_{index}"):
-                st.markdown(f"**{item['sender']}**")
-                st.caption(f"{item['department']} · {item['time']}")
+            with st.expander(f"{item['sender']} · {item['department']} · {item['time']}", expanded=index < 2):
                 st.write(item["message"])
                 tag_cols = st.columns(3)
                 for tag_col, tag in zip(tag_cols, item["tags"][:2] + [item["priority"]]):
                     color = "orange" if tag in ["High", "High priority"] else "green" if tag in ["Asset ready", "Asset update", "Ready for content", "Program update"] else "gray"
                     tag_col.badge(tag, color=color)
+                with st.expander(f"Message context and actions · {index + 1}", expanded=False):
+                    st.caption("Asset links, campaign references, calendar actions, and reply options would appear here in a future connected version.")
+
+    with context:
+        st.subheader("Context")
+        with st.container(border=True, key="message_context_focus"):
+            st.caption("Pinned campaign focus")
+            st.markdown("**MAP back-to-school confidence campaign**")
+        with st.expander("Asset requests", expanded=False):
+            st.markdown("- Student quote needed\n- Supper Club meal photo pending\n- DCAC video clip available")
+        with st.expander("Calendar references", expanded=False):
+            st.markdown("- May 22: MAP campaign push\n- May 24: Supper Club Facebook post\n- May 27: Sports Reel draft")
 
 
 def calendar_items_by_date() -> dict[date, list[dict]]:
@@ -6884,6 +7238,28 @@ def shared_calendar_page() -> None:
     header("Shared Calendar", "See marketing campaigns and department activities in one shared planning view")
     view = st.radio("Calendar view", ["Week View", "Month View"], horizontal=True)
     grouped = calendar_items_by_date()
+    calendar_detail_items = [
+        (item_date, item)
+        for item_date, items in sorted(grouped.items(), key=lambda entry: entry[0])
+        for item in items
+    ]
+    if calendar_detail_items:
+        detail_labels = [
+            f"{item_date.strftime('%b %d')} · {item['name']} · {item['channel'] or item['goal']}"
+            for item_date, item in calendar_detail_items
+        ]
+        selected_detail_label = st.selectbox("View campaign/activity details", ["Summary only"] + detail_labels)
+        if selected_detail_label != "Summary only":
+            detail_index = detail_labels.index(selected_detail_label)
+            detail_date, detail_item = calendar_detail_items[detail_index]
+            with st.expander("Calendar item detail", expanded=True):
+                detail_cols = st.columns(4)
+                detail_cols[0].metric("Date", detail_date.strftime("%b %d"))
+                detail_cols[1].metric("Status", detail_item["status"])
+                detail_cols[2].metric("Department", detail_item["department"])
+                detail_cols[3].metric("Source", detail_item["source"])
+                st.write(f"**Campaign/activity:** {detail_item['name']}")
+                st.caption(f"Goal: {detail_item.get('goal', 'Campaign support')} · Audience: {detail_item.get('audience', 'Audience TBD') or 'Audience TBD'}")
 
     def channel_color(label: str) -> str:
         lowered = label.lower()
