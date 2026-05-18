@@ -86,7 +86,13 @@ def load_css() -> None:
             }
 
             section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
-                gap: 0;
+                gap: 0.42rem !important;
+            }
+
+            section[data-testid="stSidebar"] [data-testid="stElementContainer"],
+            section[data-testid="stSidebar"] .element-container {
+                margin: 0 !important;
+                overflow: visible !important;
             }
 
             .bgc-side-v2 {
@@ -186,8 +192,13 @@ def load_css() -> None:
                 font-weight: 700;
                 letter-spacing: 1.2px;
                 text-transform: uppercase;
-                margin: 22px 0 8px;
+                margin: 0;
+                padding: 1rem 0 0.45rem;
                 line-height: 1.25;
+                display: block;
+                position: relative;
+                z-index: 2;
+                background: #ffffff;
             }
 
             .bgc-nav-link-v2,
@@ -345,6 +356,60 @@ def load_css() -> None:
                 border: 1px solid #cfe6d8;
             }
 
+            .bgc-sidebar-link-v4 {
+                display: flex;
+                align-items: center;
+                gap: 0.62rem;
+                min-height: 40px;
+                border-radius: 12px;
+                padding: 0.58rem 0.7rem;
+                margin: 0 0 0.5rem;
+                background: #ffffff;
+                border: 1px solid #e5ece7;
+                color: #16343a;
+                box-sizing: border-box;
+                font-size: 0.88rem;
+                font-weight: 760;
+                line-height: 1.18;
+                position: relative;
+                z-index: 1;
+            }
+
+            .bgc-sidebar-link-active-v4 {
+                background: #eaf6ee;
+                border-color: #cfe6d8;
+                color: #145c3b;
+                box-shadow: inset 4px 0 0 #2f7a55;
+                font-weight: 900;
+            }
+
+            .bgc-sidebar-step-v4 {
+                width: 24px;
+                height: 24px;
+                min-width: 24px;
+                border-radius: 999px;
+                background: #eef3ef;
+                color: #165c3a;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.72rem;
+                font-weight: 950;
+            }
+
+            .bgc-sidebar-link-active-v4 .bgc-sidebar-step-v4 {
+                background: #2f7a55;
+                color: #ffffff;
+            }
+
+            .bgc-sidebar-link-sub-v4 {
+                display: block;
+                color: #738386;
+                font-size: 0.72rem;
+                font-weight: 700;
+                margin-top: 0.08rem;
+            }
+
             section[data-testid="stSidebar"] div.stButton > button {
                 width: 100%;
                 min-height: 38px;
@@ -353,10 +418,21 @@ def load_css() -> None:
                 border: 1px solid #e5ece7;
                 color: #16343a;
                 box-shadow: none;
-                font-size: 0.82rem;
+                font-size: 0.84rem;
                 font-weight: 750;
                 padding: 0.45rem 0.5rem;
                 justify-content: flex-start;
+                margin-bottom: 0.25rem;
+            }
+
+            section[data-testid="stSidebar"] div.stButton > button p {
+                font-size: 0.88rem !important;
+                font-weight: 780 !important;
+                line-height: 1.15 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                margin: 0 !important;
             }
 
             section[data-testid="stSidebar"] div.stButton > button:hover {
@@ -365,6 +441,62 @@ def load_css() -> None:
                 color: #145c3b;
                 box-shadow: none;
             }
+
+            div[data-testid="stRadio"] {
+                background: #ffffff;
+                border: 1px solid #e5ece7;
+                border-radius: 16px;
+                padding: 0.55rem 0.7rem;
+                box-shadow: 0 8px 18px rgba(16, 49, 58, 0.035);
+                margin-bottom: 0.85rem;
+            }
+
+            div[data-testid="stRadio"] label p {
+                font-size: 0.94rem !important;
+                font-weight: 800 !important;
+            }
+
+            .mode-helper-card {
+                background: linear-gradient(135deg, #f5f9f6 0%, #fffaf0 100%);
+                border: 1px solid #dfe8e4;
+                border-radius: 18px;
+                padding: 1rem;
+                margin: 0.5rem 0 1rem;
+                box-shadow: 0 10px 24px rgba(16, 49, 58, 0.045);
+            }
+
+            .planner-color-strip {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 0.8rem;
+                margin: 0.8rem 0 1rem;
+            }
+
+            .planner-color-card {
+                border-radius: 18px;
+                padding: 1rem;
+                border: 1px solid #dfe8e4;
+                box-shadow: 0 10px 24px rgba(16, 49, 58, 0.045);
+                min-height: 112px;
+            }
+
+            .planner-color-card strong {
+                display: block;
+                color: #10313a;
+                font-size: 1rem;
+                margin-bottom: 0.35rem;
+            }
+
+            .planner-color-card span {
+                color: #607276;
+                font-size: 0.86rem;
+                line-height: 1.35;
+            }
+
+            .planner-card-rose { background: #fff4f5; border-color: #f4d0d4; }
+            .planner-card-blue { background: #eef5ff; border-color: #cfddf4; }
+            .planner-card-green { background: #edf8f2; border-color: #cfe6d8; }
+            .planner-card-yellow { background: #fff8db; border-color: #eadb9c; }
 
             .bgc-selected-campaign-v2 {
                 background: #F8FAF7;
@@ -5227,8 +5359,9 @@ def render_sidebar_v2() -> str:
         if st.session_state.page == "Dashboard":
             st.sidebar.markdown(
                 """
-                <div class="bgc-team-link-active-v3">
-                    <span>🏠</span><span>Dashboard</span>
+                <div class="bgc-sidebar-link-v4 bgc-sidebar-link-active-v4">
+                    <span class="bgc-sidebar-step-v4">🏠</span>
+                    <span>Dashboard<span class="bgc-sidebar-link-sub-v4">Overview + next action</span></span>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -5239,26 +5372,28 @@ def render_sidebar_v2() -> str:
             st.rerun()
 
         st.sidebar.markdown('<div class="bgc-nav-title-v2">Marketing Workflow</div>', unsafe_allow_html=True)
-        for step in MARKETING_WORKFLOW_STEPS:
-            step_active = st.session_state.page in [page_name for page_name, _icon in step["pages"]]
-            active_class = " bgc-workflow-step-active-v3" if step_active else ""
-            pages_label = " + ".join(page_name.replace("AI ", "") for page_name, _icon in step["pages"])
-            st.sidebar.markdown(
-                f"""
-                <div class="bgc-workflow-step-v3{active_class}">
-                    <div class="bgc-step-number-v3">{step['step']}</div>
-                    <div>
-                        <div class="bgc-step-title-v3">{step['title']}</div>
-                        <div class="bgc-step-help-v3">{step['help']}</div>
-                        <div class="bgc-step-pages-v3">{pages_label}</div>
+        workflow_links = [
+            ("1", "Intake", "Program & Asset Intake", "Program update + assets"),
+            ("2", "Recommend", "AI Campaign Recommendation", "Best campaign to run"),
+            ("3A", "Ideas", "AI Viral Content Engine", "Hooks + video ideas"),
+            ("3B", "Drafts", "AI Content Studio", "Copy + scoring"),
+            ("4", "Plan", "Campaign Planner", "Weekly + community plan"),
+            ("5A", "Trends", "Trend & Performance Scan", "Signals + opportunities"),
+            ("5", "Impact", "Impact Dashboard", "Results + donor proof"),
+        ]
+        for step_number, label, page_name, helper in workflow_links:
+            if st.session_state.page == page_name:
+                st.sidebar.markdown(
+                    f"""
+                    <div class="bgc-sidebar-link-v4 bgc-sidebar-link-active-v4">
+                        <span class="bgc-sidebar-step-v4">{step_number}</span>
+                        <span>{label}<span class="bgc-sidebar-link-sub-v4">{helper}</span></span>
                     </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-            page_cols = st.sidebar.columns(len(step["pages"]))
-            for col, (page_name, icon) in zip(page_cols, step["pages"]):
-                if col.button(f"{icon} {page_name.split('AI ')[-1]}", key=f"flow-nav-{page_name}", use_container_width=True):
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                if st.sidebar.button(f"{step_number} {label}", key=f"flow-nav-{page_name}", use_container_width=True):
                     st.session_state.page = page_name
                     st.session_state.active_page = page_name
                     st.rerun()
@@ -5268,13 +5403,13 @@ def render_sidebar_v2() -> str:
             if st.session_state.page == page_name:
                 st.sidebar.markdown(
                     f"""
-                    <div class="bgc-team-link-active-v3">
-                        <span>{icon}</span><span>{page_name}</span>
+                    <div class="bgc-sidebar-link-v4 bgc-sidebar-link-active-v4">
+                        <span class="bgc-sidebar-step-v4">{icon}</span>
+                        <span>{page_name}<span class="bgc-sidebar-link-sub-v4">{help_text}</span></span>
                     </div>
                     """,
                     unsafe_allow_html=True,
                 )
-                st.sidebar.caption(help_text)
             else:
                 if st.sidebar.button(f"{icon} {page_name}", key=f"team-nav-{page_name}", use_container_width=True):
                     st.session_state.page = page_name
@@ -6263,8 +6398,8 @@ def trends_page() -> None:
                 unsafe_allow_html=True,
             )
 
-    with st.expander("View full performance details", expanded=False):
-        st.subheader("Trend Matrix")
+    detail_tabs = st.tabs(["Trend Matrix", "Trend Intelligence", "Social Listening"])
+    with detail_tabs[0]:
         st.caption("X-axis: audience urgency | Y-axis: asset readiness")
         matrix_cols = st.columns(4)
         matrix_items = [
@@ -6286,7 +6421,7 @@ def trends_page() -> None:
                     unsafe_allow_html=True,
                 )
 
-        st.subheader("Trend Intelligence")
+    with detail_tabs[1]:
         icons = ["🎒", "🧠", "🏠", "🤝", "🏀", "🍽️"]
         for icon, (trend, program, audience, channel, angle, score) in zip(icons, TRENDS):
             kind = "softgreen" if score >= 90 else "yellow"
@@ -6307,7 +6442,8 @@ def trends_page() -> None:
                 """,
                 unsafe_allow_html=True,
             )
-        st.subheader("Social Listening Snapshot")
+
+    with detail_tabs[2]:
         insight_rows = "".join(
             f'<div class="check-row"><span class="check-ok">✓ {insight}</span>{badge("Signal", "softgreen")}</div>'
             for insight in SOCIAL_INSIGHTS
@@ -6328,12 +6464,23 @@ def recommendation_page() -> None:
 
     header("AI Campaign Recommendation")
     campaign_recommendation_hero()
-    recommendation_mode = st.radio(
+    st.markdown(
+        """
+        <div class="mode-helper-card">
+            <strong>Choose recommendation type</strong><br>
+            <span class="muted">Switch between digital posts, offline community activations, or hybrid campaign plans.</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    recommendation_mode = st.pills(
         "Recommendation mode",
         ["Digital Campaign", "Offline Activation", "Hybrid Campaign"],
-        horizontal=True,
+        default="Digital Campaign",
+        key="recommendation-mode-pills",
         help="Switch between channel-first campaign recommendations and real-world community activation ideas.",
     )
+    recommendation_mode = recommendation_mode or "Digital Campaign"
     if recommendation_mode != "Digital Campaign":
         st.subheader(f"{recommendation_mode} Recommendations")
         st.caption("Mock scoring combines community visibility, donor appeal, partnership fit, and content potential.")
@@ -6649,23 +6796,35 @@ def viral_content_engine_page() -> None:
     if st.session_state.get("viral_hook_mode") != mode:
         st.session_state.viral_hook_mode = mode
         st.session_state.viral_selected_hook = hook_groups[0][1][0]
-    hook_cols = st.columns(4)
-    for col, (title, hooks) in zip(hook_cols, hook_groups):
-        with col:
-            st.markdown(f"#### {title}")
-            for hook_index, hook in enumerate(hooks[:3]):
-                st.markdown(
-                    f"""
-                    <div class="viral-hook-card">
-                        {badge('Hook option', 'navy')}
-                        <p style="font-size:0.98rem;font-weight:850;margin:0.6rem 0 0;">{hook}</p>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                if st.button("Use this hook", key=f"viral-hook-{title}-{hook_index}"):
-                    st.session_state.viral_selected_hook = hook
-                    st.toast("Hook loaded into the reel structure.")
+    hook_category = st.pills(
+        "Hook category",
+        [title for title, _hooks in hook_groups],
+        default=hook_groups[0][0],
+        key=f"viral-hook-category-{mode}",
+    )
+    hook_category = hook_category or hook_groups[0][0]
+    active_hooks = next(hooks for title, hooks in hook_groups if title == hook_category)
+    selected_hook = st.radio(
+        "Select one hook",
+        active_hooks[:3],
+        index=0,
+        key=f"viral-hook-radio-{mode}-{hook_category}",
+    )
+    hook_preview_cols = st.columns([0.72, 0.28])
+    with hook_preview_cols[0]:
+        st.markdown(
+            f"""
+            <div class="viral-hook-card">
+                {badge(hook_category, 'softgreen')}
+                <h3 style="margin:0.6rem 0 0;">{selected_hook}</h3>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with hook_preview_cols[1]:
+        if st.button("Use selected hook", key=f"viral-use-selected-hook-{mode}", use_container_width=True):
+            st.session_state.viral_selected_hook = selected_hook
+            st.toast("Hook loaded into the reel structure.")
 
     active_hook = st.session_state.get("viral_selected_hook", hook_groups[0][1][0])
     st.subheader("Reel Structure Builder")
@@ -6794,11 +6953,22 @@ def content_studio_page() -> None:
     )
     set_recommended_campaign(selected_name)
     program = get_program(selected_name)
-    mode = st.radio(
+    st.markdown(
+        """
+        <div class="mode-helper-card">
+            <strong>Choose content mode</strong><br>
+            <span class="muted">Pick whether staff need finished copy, fun social ideas, or a video production guide.</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    mode = st.pills(
         "Content mode",
         ["Standard Campaign Copy", "Fun Social Content Ideas", "Video Inspiration Builder"],
-        horizontal=True,
+        default="Standard Campaign Copy",
+        key="content-mode-pills",
     )
+    mode = mode or "Standard Campaign Copy"
 
     selected_asset = st.session_state.get("selected_asset")
     if selected_asset:
@@ -7053,234 +7223,185 @@ def planner_page() -> None:
 
     header("Campaign Planner")
     focus_program = get_program("Supper Club")
+    planner_tabs = st.tabs(["Weekly Plan", "Offline Activation", "Regional Intelligence", "Partnership Ideas"])
 
-    st.markdown(
-        f"""
-        <div class="weekly-focus-card">
-            <div class="weekly-focus-grid">
-                <div>
-                    <div class="kpi-label">Weekly Focus</div>
-                    <h2 style="margin:0.2rem 0 0.45rem;">This Week: {focus_program['name']} Campaign</h2>
-                    <p class="muted" style="font-size:1rem; margin-bottom:0.85rem;">
-                        Build warm community awareness for Supper Club, then drive a clear mid-week action for
-                        referrals, volunteers, and families who could benefit from a welcoming meal.
-                    </p>
-                    {badge('Awareness', 'softgreen')}
-                    {badge('Registration', 'yellow')}
-                    {badge('Community connection', 'navy')}
-                </div>
-                <div>
-                    <div class="detail-item" style="margin-bottom:0.75rem;">
-                        <div class="kpi-label">Main Push Day</div>
-                        <strong>Wednesday – conversion</strong>
-                    </div>
-                    <div class="detail-item">
-                        <div class="kpi-label">Primary Channel</div>
-                        <strong>Facebook parent + community post</strong>
-                    </div>
-                </div>
+    with planner_tabs[0]:
+        st.markdown(
+            """
+            <div class="planner-color-strip">
+                <div class="planner-color-card planner-card-rose"><strong>Instagram</strong><span>Warm awareness story for Supper Club.</span></div>
+                <div class="planner-color-card planner-card-blue"><strong>Facebook</strong><span>Parent/community CTA on Wednesday.</span></div>
+                <div class="planner-color-card planner-card-green"><strong>Newsletter</strong><span>Monthly retention and referral block.</span></div>
+                <div class="planner-color-card planner-card-yellow"><strong>Partners</strong><span>Referral message and local sharing.</span></div>
             </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.subheader("Key Actions")
-    actions = [
-        ("Wed – Facebook", "Main Conversion Post", "Parent info + CTA for families, referral partners, and volunteers.", "High", "CTA", "planning-action-facebook"),
-        ("Tue – Instagram", "Awareness Video", "Short real-photo story showing the warmth and welcome of Supper Club.", "Medium", "", "planning-action-instagram"),
-        ("Fri – Google Ads", "Search Capture", "Refresh search ad copy for local food support and community meal intent.", "Medium", "Conversion", "planning-action-google"),
-        ("Mon – Partners", "Referral Message", "Simple partner note that explains who Supper Club supports and how to refer.", "Medium", "", "planning-action-partner"),
-    ]
-    action_cols = st.columns(2)
-    for index, (timing, title, description, priority, marker, channel_class) in enumerate(actions):
-        with action_cols[index % 2]:
-            marker_badge = badge(marker, "yellow") if marker else ""
-            priority_class = "priority-high" if priority == "High" else "priority-medium"
-            st.markdown(
-                f"""
-                <div class="planning-action-card {channel_class}">
-                    {badge(timing, 'softgreen')} {marker_badge}
-                    <h3>{'🔥 ' if priority == 'High' else ''}{title}</h3>
-                    <p class="muted" style="margin-bottom:0;">{description}</p>
-                    <div class="planning-meta">
-                        <span><span class="priority-dot {priority_class}"></span>{priority} priority</span>
-                        <span>{focus_program['name']}</span>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f"""
+            <div class="weekly-focus-card">
+                <div class="weekly-focus-grid">
+                    <div>
+                        <div class="kpi-label">Weekly Focus</div>
+                        <h2 style="margin:0.2rem 0 0.45rem;">This Week: {focus_program['name']} Campaign</h2>
+                        <p class="muted" style="font-size:1rem; margin-bottom:0.85rem;">
+                            Build warm community awareness for Supper Club, then drive a clear mid-week action for
+                            referrals, volunteers, and families who could benefit from a welcoming meal.
+                        </p>
+                        {badge('Awareness', 'softgreen')}
+                        {badge('Registration', 'yellow')}
+                        {badge('Community connection', 'navy')}
+                    </div>
+                    <div>
+                        <div class="detail-item" style="margin-bottom:0.75rem;">
+                            <div class="kpi-label">Main Push Day</div>
+                            <strong>Wednesday – conversion</strong>
+                        </div>
+                        <div class="detail-item">
+                            <div class="kpi-label">Primary Channel</div>
+                            <strong>Facebook parent + community post</strong>
+                        </div>
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.subheader("Key Actions")
+        actions = [
+            ("Wed – Facebook", "Main Conversion Post", "Parent info + CTA for families, referral partners, and volunteers.", "High", "CTA", "planning-action-facebook"),
+            ("Tue – Instagram", "Awareness Video", "Short real-photo story showing the warmth and welcome of Supper Club.", "Medium", "", "planning-action-instagram"),
+            ("Fri – Google Ads", "Search Capture", "Refresh search ad copy for local food support and community meal intent.", "Medium", "Conversion", "planning-action-google"),
+            ("Mon – Partners", "Referral Message", "Simple partner note that explains who Supper Club supports and how to refer.", "Medium", "", "planning-action-partner"),
+        ]
+        action_cols = st.columns(2)
+        for index, (timing, title, description, priority, marker, channel_class) in enumerate(actions):
+            with action_cols[index % 2]:
+                marker_badge = badge(marker, "yellow") if marker else ""
+                priority_class = "priority-high" if priority == "High" else "priority-medium"
+                st.markdown(
+                    f"""
+                    <div class="planning-action-card {channel_class}">
+                        {badge(timing, 'softgreen')} {marker_badge}
+                        <h3>{'🔥 ' if priority == 'High' else ''}{title}</h3>
+                        <p class="muted" style="margin-bottom:0;">{description}</p>
+                        <div class="planning-meta">
+                            <span><span class="priority-dot {priority_class}"></span>{priority} priority</span>
+                            <span>{focus_program['name']}</span>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+        st.markdown(
+            """
+            <div class="pipeline-summary-grid">
+                <div class="pipeline-summary-item"><div class="kpi-label">Draft</div><strong>3</strong><span class="muted">Content items in progress</span></div>
+                <div class="pipeline-summary-item"><div class="kpi-label">Ready</div><strong>2</strong><span class="muted">Prepared for scheduling</span></div>
+                <div class="pipeline-summary-item"><div class="kpi-label">Scheduled</div><strong>4</strong><span class="muted">Ready for the week</span></div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.markdown(
-        """
-        <div class="timeline-card">
-            <div class="kpi-label">Lightweight Timeline</div>
-            <div class="timeline-row">
-                <div class="timeline-day">Mon<span class="timeline-dots">●</span></div>
-                <div class="timeline-day">Tue<span class="timeline-dots">●●</span></div>
-                <div class="timeline-day timeline-day-main">Wed<span class="timeline-dots">🔥 ●●</span></div>
-                <div class="timeline-day">Thu<span class="timeline-dots">●</span></div>
-                <div class="timeline-day">Fri<span class="timeline-dots">●●</span></div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    with planner_tabs[1]:
+        st.subheader("Community Activation Planner")
+        st.caption("Plan offline campaigns, partnerships, donation drives, ambassador programs, and the digital content that supports them.")
+        activation_type = st.pills(
+            "Campaign type",
+            [
+                "Digital campaign",
+                "Offline community activation",
+                "Hybrid campaign",
+                "Donation drive",
+                "School / campus partnership",
+                "Ambassador program",
+            ],
+            default="Hybrid campaign",
+            key="planner-activation-type",
+        ) or "Hybrid campaign"
+        st.badge(f"Planning mode: {activation_type}", color="green")
+        activation_tabs = st.tabs([campaign["name"].replace(" — BGC Edition", "") for campaign in OFFLINE_ACTIVATIONS])
+        for index, (tab, campaign) in enumerate(zip(activation_tabs, OFFLINE_ACTIVATIONS)):
+            with tab:
+                with st.container(border=True, key=f"community_activation_{index}"):
+                    st.badge(campaign["name"], color="orange" if index == 0 else "green")
+                    st.markdown(f"### {campaign['message']}")
+                    st.caption(campaign["goal"])
+                    summary_cols = st.columns(2)
+                    summary_cols[0].markdown(f"**Target audience:** {campaign['audience']}")
+                    summary_cols[1].markdown(f"**Best CTA:** {campaign['cta']}")
+                    with st.expander("Offline tactics", expanded=False):
+                        for tactic in campaign["tactics"][:4]:
+                            st.caption(f"• {tactic}")
+                    with st.expander("Partners and digital support", expanded=False):
+                        st.markdown(f"**Potential partners:** {', '.join(campaign['partners'][:3])}")
+                        st.markdown(f"**Digital support content:** {', '.join(campaign['digital_support'][:3])}")
+                    st.progress(0 if index == 0 else 0.35 if index == 1 else 0.18)
+                    st.caption(f"Milestone: {campaign['milestone']}")
+                    st.info(campaign["impact"])
 
-    st.markdown(
-        """
-        <div class="pipeline-summary-grid">
-            <div class="pipeline-summary-item">
-                <div class="kpi-label">Draft</div>
-                <strong>3</strong>
-                <span class="muted">Content items in progress</span>
-            </div>
-            <div class="pipeline-summary-item">
-                <div class="kpi-label">Ready</div>
-                <strong>2</strong>
-                <span class="muted">Prepared for scheduling</span>
-            </div>
-            <div class="pipeline-summary-item">
-                <div class="kpi-label">Scheduled</div>
-                <strong>4</strong>
-                <span class="muted">Ready for the week</span>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    with planner_tabs[2]:
+        st.subheader("Regional Intelligence Dashboard")
+        targeting_mode = st.pills(
+            "Outreach intelligence mode",
+            ["Local London targeting", "Broad online engagement"],
+            default="Local London targeting",
+            key="planner-targeting-mode",
+        ) or "Local London targeting"
+        if targeting_mode == "Local London targeting":
+            top_region = max(LONDON_HEATMAP, key=lambda item: item["heat"])
+            fastest_region = next(region for region in LONDON_HEATMAP if region["area"] == "East London")
+            volunteer_region = next(region for region in LONDON_HEATMAP if region["area"] == "Downtown")
+            summary_cols = st.columns(3)
+            for index, (label, region, note) in enumerate([
+                ("Highest engagement", top_region, f"{top_region['heat']} heat"),
+                ("Fastest growing", fastest_region, "Youth + family reach"),
+                ("Best volunteer response", volunteer_region, "Community storytelling"),
+            ]):
+                with summary_cols[index]:
+                    with st.container(border=True, key=f"region_intel_summary_{index}"):
+                        st.caption(label)
+                        st.markdown(f"### {region['area']}")
+                        st.caption(note)
+            selected_region_name = st.selectbox("Focused region", [region["area"] for region in LONDON_HEATMAP], index=1)
+            selected_region = next(region for region in LONDON_HEATMAP if region["area"] == selected_region_name)
+            left_regions, right_focus = st.columns([0.36, 0.64], gap="large")
+            with left_regions:
+                with st.container(border=True, key="region_selector_summary"):
+                    st.caption("Selected region")
+                    st.markdown(f"### {selected_region['area']}")
+                    st.progress(selected_region["heat"] / 100)
+                    st.caption(f"{selected_region['heat']} / 100 heat score")
+                    st.badge(selected_region["awareness"], color="green")
+            with right_focus:
+                with st.container(border=True, key="region_focus_panel"):
+                    st.badge("Focused recommendation", icon="🎯", color="green")
+                    st.markdown(f"### {selected_region['engagement']}")
+                    st.write(f"**Recommended campaign:** {selected_region['campaign']}")
+                    st.caption(selected_region["opportunity"])
+                    st.write(f"**Awareness:** {selected_region['awareness']}")
+                    with st.expander("Suggested partnerships and local activation ideas", expanded=False):
+                        st.markdown("- School newsletter or referral partner mention.\n- Local business poster or QR handout.\n- Community story booth or volunteer photo moment.\n- Partner email with one clear CTA.")
+        else:
+            st.markdown("### Broad Online Engagement")
+            signal_cols = st.columns(2)
+            for index, signal in enumerate(BROAD_ONLINE_SIGNALS):
+                with signal_cols[index % 2]:
+                    with st.container(border=True, key=f"online_card_{index}"):
+                        st.badge("Online opportunity", icon="✨", color="green")
+                        st.markdown(f"### {signal['opportunity']}")
+                        st.info(f"Best format: {signal['format']}")
+                        st.markdown(f"**Suggested campaign:** {signal['campaign']}")
+                        st.markdown(f"**Why it matters:** {signal['why']}")
 
-    st.subheader("Community Activation Planner")
-    st.caption("Plan offline campaigns, partnerships, donation drives, ambassador programs, and the digital content that supports them.")
-    activation_type = st.selectbox(
-        "Campaign type",
-        [
-            "Digital campaign",
-            "Offline community activation",
-            "Hybrid campaign",
-            "Donation drive",
-            "School / campus partnership",
-            "Ambassador program",
-        ],
-        index=2,
-    )
-    st.badge(f"Planning mode: {activation_type}", color="green")
-    activation_tabs = st.tabs([campaign["name"].replace(" — BGC Edition", "") for campaign in OFFLINE_ACTIVATIONS] + ["Community Partnerships"])
-    for index, (tab, campaign) in enumerate(zip(activation_tabs[:3], OFFLINE_ACTIVATIONS)):
-        with tab:
-            with st.container(border=True, key=f"community_activation_{index}"):
-                st.badge(campaign["name"], color="orange" if index == 0 else "green")
-                st.markdown(f"### {campaign['message']}")
-                st.caption(campaign["goal"])
-                summary_cols = st.columns(2)
-                summary_cols[0].markdown(f"**Target audience:** {campaign['audience']}")
-                summary_cols[1].markdown(f"**Best CTA:** {campaign['cta']}")
-                with st.expander("Offline tactics", expanded=False):
-                    for tactic in campaign["tactics"][:4]:
-                        st.caption(f"• {tactic}")
-                with st.expander("Partners and digital support", expanded=False):
-                    st.markdown(f"**Potential partners:** {', '.join(campaign['partners'][:3])}")
-                    st.markdown(f"**Digital support content:** {', '.join(campaign['digital_support'][:3])}")
-                st.progress(0 if index == 0 else 0.35 if index == 1 else 0.18)
-                st.caption(f"Milestone: {campaign['milestone']}")
-                st.info(campaign["impact"])
-    with activation_tabs[3]:
-        st.markdown("### Community Partnerships")
-        st.caption("Use this tab to connect campaign ideas to schools, campus groups, business drop-off points, and local media.")
+    with planner_tabs[3]:
+        st.subheader("Partnership Ideas")
         partner_cols = st.columns(3)
         for index, label in enumerate(["Schools", "Western / Fanshawe", "Local Businesses"]):
             with partner_cols[index]:
                 st.metric(label, ["Donation links", "Student volunteers", "Drop-off points"][index])
-
-    st.subheader("Regional Intelligence Dashboard")
-    targeting_mode = st.radio(
-        "Outreach intelligence mode",
-        ["Local London targeting", "Broad online engagement"],
-        horizontal=True,
-    )
-    if targeting_mode == "Local London targeting":
-        top_region = max(LONDON_HEATMAP, key=lambda item: item["heat"])
-        fastest_region = next(region for region in LONDON_HEATMAP if region["area"] == "East London")
-        volunteer_region = next(region for region in LONDON_HEATMAP if region["area"] == "Downtown")
-        summary_cols = st.columns(3)
-        summary_data = [
-            ("Highest engagement", top_region["area"], f"{top_region['heat']} heat"),
-            ("Fastest growing", fastest_region["area"], "Youth + family reach"),
-            ("Best volunteer response", volunteer_region["area"], "Community storytelling"),
-        ]
-        for index, (col, (label, value, note)) in enumerate(zip(summary_cols, summary_data)):
-            with col:
-                with st.container(border=True, key=f"region_intel_summary_{index}"):
-                    st.caption(label)
-                    st.markdown(f"### {value}")
-                    st.caption(note)
-
-        region_colors = {
-            "North London": "green",
-            "Downtown": "orange",
-            "East London": "blue",
-            "West London": "green",
-            "South London": "gray",
-        }
-        selected_region_name = st.selectbox(
-            "Focused region",
-            [region["area"] for region in LONDON_HEATMAP],
-            index=1,
-            help="Select a region to update the focused recommendation panel.",
-        )
-        selected_region = next(region for region in LONDON_HEATMAP if region["area"] == selected_region_name)
-        left_regions, right_focus = st.columns([0.36, 0.64], gap="large")
-        with left_regions:
-            with st.container(border=True, key="region_selector_summary"):
-                st.caption("Selected region")
-                st.markdown(f"### {selected_region['area']}")
-                st.progress(selected_region["heat"] / 100)
-                st.caption(f"{selected_region['heat']} / 100 heat score")
-                st.badge(selected_region["awareness"], color=region_colors.get(selected_region["area"], "green"))
-            with st.expander("Browse all regional cards", expanded=False):
-                for index, region in enumerate(LONDON_HEATMAP):
-                    heat_label = "High" if region["heat"] >= 80 else "Medium" if region["heat"] >= 70 else "Emerging"
-                    with st.container(border=True, key=f"region_intel_card_{index}"):
-                        st.badge(region["area"], icon="📍", color=region_colors.get(region["area"], "green"))
-                        st.write(f"**{region['heat']} / 100** · {heat_label} engagement")
-                        st.caption(region["campaign"])
-        with right_focus:
-            with st.container(border=True, key="region_focus_panel"):
-                st.badge("Focused recommendation", icon="🎯", color="green")
-                st.markdown(f"### {selected_region['area']}")
-                st.caption("Engagement signal")
-                st.markdown(f"## {selected_region['engagement']}")
-                st.progress(selected_region["heat"] / 100)
-                st.caption(f"{selected_region['heat']} / 100 heat score")
-                st.write(f"**Recommended campaign:** {selected_region['campaign']}")
-                st.caption(selected_region["opportunity"])
-                st.write(f"**Awareness:** {selected_region['awareness']}")
-                with st.expander("Suggested partnerships and local activation ideas", expanded=False):
-                    st.markdown("- School newsletter or referral partner mention.\n- Local business poster or QR handout.\n- Community story booth or volunteer photo moment.\n- Partner email with one clear CTA.")
-    else:
-        st.markdown("### Broad Online Engagement")
-        st.caption(
-            "Use this mode when a campaign is less geography-specific and more about reach, sharing, "
-            "volunteer recruitment, donor storytelling, or youth creator visibility."
-        )
-        online_styles = {
-            "Trending short-form content": ("orange", "TikTok-style trend", "High shareability"),
-            "Donor storytelling": ("green", "Community storytelling", "Best for awareness"),
-            "Volunteer recruitment": ("blue", "Conversion moment", "Best for volunteer conversion"),
-            "Youth creator content": ("green", "Creator energy", "Strong youth engagement"),
-        }
-        signal_cols = st.columns(2)
-        for index, signal in enumerate(BROAD_ONLINE_SIGNALS):
-            with signal_cols[index % 2]:
-                with st.container(border=True, key=f"online_card_{index}"):
-                    color, badge_one, badge_two = online_styles.get(signal["opportunity"], ("green", "Outreach signal", "Campaign fit"))
-                    st.badge(badge_one, icon="✨", color=color)
-                    st.badge(badge_two, icon="📈", color="green")
-                    st.markdown(f"### {signal['opportunity']}")
-                    st.info(f"Best format: {signal['format']}")
-                    st.markdown(f"**Suggested campaign:** {signal['campaign']}")
-                    st.markdown(f"**Why it matters:** {signal['why']}")
+                st.caption(["Newsletter mentions and backpack drives", "Campus ambassador content and volunteers", "Drop-off points, sponsor wall, and local visibility"][index])
 
 
 def message_board_page() -> None:
@@ -7533,14 +7654,9 @@ def shared_calendar_page() -> None:
         return "calendar-status-draft"
 
     def calendar_event_card(item: dict, key: str) -> None:
-        with st.container(border=True, key=key):
-            event_platform = item["channel"] or item["goal"]
-            st.badge(event_platform, color=channel_color(event_platform))
-            st.write(f"**{item['name']}**")
-            with st.expander("Details", expanded=False):
-                st.badge(item["status"], color=status_color(item["status"]))
-                st.caption(item["department"])
-                st.caption(f"Source: {item['source']}")
+        event_platform = item["channel"] or item["goal"]
+        st.badge(event_platform, color=channel_color(event_platform))
+        st.caption(f"**{item['name']}**")
 
     if view == "Week View":
         start = TODAY - timedelta(days=TODAY.weekday())
@@ -7722,13 +7838,14 @@ def impact_page() -> None:
         with summary_cols[index]:
             kpi(label, f"{value:,}", "Mock 30-day signal", index % 2 == 0)
 
-    with st.expander("Awareness to attendance funnel", expanded=False):
+    impact_tabs = st.tabs(["Funnel", "Performance Details", "Learning Loop", "Donor Proof Points"])
+    with impact_tabs[0]:
         funnel_cols = st.columns(6)
         for col, (label, value) in zip(funnel_cols, FUNNEL):
             with col:
                 st.markdown(f'<div class="funnel"><strong>{value}</strong>{label}</div>', unsafe_allow_html=True)
 
-    with st.expander("View full performance details", expanded=False):
+    with impact_tabs[1]:
         cols = st.columns(4)
         for index, (label, value) in enumerate(IMPACT.items()):
             with cols[index % 4]:
@@ -7736,7 +7853,7 @@ def impact_page() -> None:
         st.subheader("Performance Mix")
         st.bar_chart(IMPACT)
 
-    with st.expander("Learning loop and next best campaign", expanded=False):
+    with impact_tabs[2]:
         learnings = [
             ("What performed well", "Parent-focused Facebook posts with clear registration details."),
             ("Audience response", "Young parents and school partners clicked most often."),
@@ -7749,6 +7866,12 @@ def impact_page() -> None:
             '<div class="card-yellow"><strong>Next Best Campaign:</strong><p>After-School Recreation, using parent safety and affordability messaging.</p></div>',
             unsafe_allow_html=True,
         )
+
+    with impact_tabs[3]:
+        proof_cols = st.columns(3)
+        for index, proof in enumerate(DONOR_PROOF_POINTS):
+            with proof_cols[index % 3]:
+                st.markdown(f'<div class="card-green"><strong>{proof}</strong><p>Reusable donor-facing proof point.</p></div>', unsafe_allow_html=True)
 
 
 def asset_library_page() -> None:
