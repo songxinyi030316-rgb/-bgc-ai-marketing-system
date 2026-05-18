@@ -502,6 +502,111 @@ def load_css() -> None:
             .planner-card-green { background: #edf8f2; border-color: #cfe6d8; }
             .planner-card-yellow { background: #fff8db; border-color: #eadb9c; }
 
+            .partner-strategy-hero {
+                background:
+                    radial-gradient(circle at 92% 8%, rgba(255, 211, 82, 0.18), transparent 24%),
+                    linear-gradient(135deg, #f5fbf7 0%, #ffffff 58%, #fff8df 100%);
+                border: 1px solid #dbe9e1;
+                border-radius: 24px;
+                padding: 1.25rem 1.35rem;
+                margin: 0.8rem 0 1.1rem;
+                box-shadow: 0 14px 30px rgba(16, 49, 58, 0.055);
+            }
+
+            .partner-strategy-hero h3 {
+                margin: 0.25rem 0 0.35rem;
+                color: #10313a;
+                font-size: 1.35rem;
+                letter-spacing: -0.01em;
+            }
+
+            .partner-card {
+                min-height: 268px;
+                background: #ffffff;
+                border: 1px solid #dfe8e4;
+                border-radius: 22px;
+                padding: 1rem 1.05rem;
+                box-shadow: 0 12px 28px rgba(16, 49, 58, 0.055);
+                margin-bottom: 1rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .partner-card::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 6px;
+                background: var(--partner-accent, #2f7a55);
+            }
+
+            .partner-card h3 {
+                margin: 0.35rem 0 0.45rem;
+                font-size: 1.2rem;
+                color: #10313a;
+                letter-spacing: -0.01em;
+            }
+
+            .partner-card p {
+                color: #607276;
+                font-size: 0.9rem;
+                line-height: 1.42;
+                margin: 0.36rem 0;
+            }
+
+            .partner-card strong {
+                color: #10313a;
+            }
+
+            .partner-card-schools { --partner-accent: #2f7a55; background: linear-gradient(145deg, #ffffff 0%, #f3fbf6 100%); }
+            .partner-card-campus { --partner-accent: #6aa68b; background: linear-gradient(145deg, #ffffff 0%, #f5faf7 100%); }
+            .partner-card-business { --partner-accent: #f1c84b; background: linear-gradient(145deg, #ffffff 0%, #fff9e5 100%); }
+            .partner-card-media { --partner-accent: #5c9aa0; background: linear-gradient(145deg, #ffffff 0%, #eef8f8 100%); }
+
+            .partner-step-row {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 0.8rem;
+                margin-top: 0.4rem;
+            }
+
+            .partner-step {
+                background: #ffffff;
+                border: 1px solid #dfe8e4;
+                border-radius: 18px;
+                padding: 0.85rem;
+                box-shadow: 0 10px 22px rgba(16, 49, 58, 0.045);
+            }
+
+            .partner-step span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border-radius: 999px;
+                background: #eaf6ee;
+                color: #145c3b;
+                font-weight: 900;
+                margin-bottom: 0.45rem;
+            }
+
+            .partner-step strong {
+                display: block;
+                color: #10313a;
+                font-size: 0.88rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .partner-step p {
+                color: #607276;
+                font-size: 0.8rem;
+                line-height: 1.32;
+                margin: 0;
+            }
+
             .bgc-selected-campaign-v2 {
                 background: #F8FAF7;
                 border: 1px solid #E5ECE7;
@@ -7852,11 +7957,92 @@ def planner_page() -> None:
 
     with planner_tabs[3]:
         st.subheader("Partnership Ideas")
-        partner_cols = st.columns(3)
-        for index, label in enumerate(["Schools", "Western / Fanshawe", "Local Businesses"]):
-            with partner_cols[index]:
-                st.metric(label, ["Donation links", "Student volunteers", "Drop-off points"][index])
-                st.caption(["Newsletter mentions and backpack drives", "Campus ambassador content and volunteers", "Drop-off points, sponsor wall, and local visibility"][index])
+        st.markdown(
+            """
+            <div class="partner-strategy-hero">
+                <span class="badge badge-softgreen">Community partnership strategy</span>
+                <h3>Turn campaign goals into local distribution, donors, volunteers, and trusted referrals.</h3>
+                <p class="muted" style="margin:0;">
+                    Use this board to decide who BGC should involve, what to ask for, and what marketing content supports the partnership.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        partner_cards = [
+            {
+                "class": "partner-card-schools",
+                "name": "Schools + parent councils",
+                "role": "Trusted family distribution",
+                "ask": "Share registration links, backpack campaign QR codes, and newsletter blurbs.",
+                "value": "Reaches families through channels they already read and trust.",
+                "next": "Send a one-page partner kit with poster, caption, and referral link.",
+                "content": "Parent Facebook post, school newsletter copy, printable QR poster",
+                "badge": "Best for parent reach",
+            },
+            {
+                "class": "partner-card-campus",
+                "name": "Western / Fanshawe groups",
+                "role": "Volunteer + creator pipeline",
+                "ask": "Recruit student volunteers and campus ambassadors for short-form content.",
+                "value": "Adds energy, peer credibility, and a repeatable volunteer source.",
+                "next": "Invite 5 clubs to co-host an ambassador challenge.",
+                "content": "Ambassador Reel, volunteer sign-up story, campus email blurb",
+                "badge": "Best for youth energy",
+            },
+            {
+                "class": "partner-card-business",
+                "name": "Local businesses",
+                "role": "Donation drive visibility",
+                "ask": "Host drop-off points, sponsor walls, and employee giving moments.",
+                "value": "Makes BGC visible offline and gives donors a practical way to help.",
+                "next": "Create a 3-tier sponsor ask: drop-off point, item sponsor, campaign match.",
+                "content": "Sponsor spotlight post, LinkedIn thank-you, donation counter graphic",
+                "badge": "Best for donor action",
+            },
+            {
+                "class": "partner-card-media",
+                "name": "Local media + community newsletters",
+                "role": "Awareness and legitimacy",
+                "ask": "Feature back-to-school, Supper Club, or youth success stories.",
+                "value": "Builds recognition beyond social followers and reinforces BGC’s community value.",
+                "next": "Pitch one clear proof point with a human story and photo option.",
+                "content": "Media pitch, impact proof points, story booth quotes",
+                "badge": "Best for recognition",
+            },
+        ]
+
+        card_cols = st.columns(2, gap="large")
+        for index, partner in enumerate(partner_cards):
+            with card_cols[index % 2]:
+                st.markdown(
+                    f"""
+                    <div class="partner-card {partner['class']}">
+                        <span class="badge badge-softgreen">{html.escape(partner['badge'])}</span>
+                        <h3>{html.escape(partner['name'])}</h3>
+                        <p><strong>Partnership role:</strong> {html.escape(partner['role'])}</p>
+                        <p><strong>Specific ask:</strong> {html.escape(partner['ask'])}</p>
+                        <p><strong>Why it matters:</strong> {html.escape(partner['value'])}</p>
+                        <p><strong>Next move:</strong> {html.escape(partner['next'])}</p>
+                        <p><strong>Marketing support:</strong> {html.escape(partner['content'])}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+        st.markdown("#### Partnership outreach flow")
+        st.markdown(
+            """
+            <div class="partner-step-row">
+                <div class="partner-step"><span>1</span><strong>Choose partner</strong><p>Pick the group that best matches the campaign goal.</p></div>
+                <div class="partner-step"><span>2</span><strong>Prepare ask</strong><p>Make the request concrete: share, host, sponsor, volunteer, or refer.</p></div>
+                <div class="partner-step"><span>3</span><strong>Send assets</strong><p>Provide caption, QR link, poster, and one proof point.</p></div>
+                <div class="partner-step"><span>4</span><strong>Report back</strong><p>Send thank-you content and a simple impact update.</p></div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
 def message_board_page() -> None:
