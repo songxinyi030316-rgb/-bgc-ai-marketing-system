@@ -244,6 +244,128 @@ def load_css() -> None:
                 white-space: normal;
             }
 
+            .bgc-flow-helper-v3 {
+                background: linear-gradient(135deg, #f8fbf9 0%, #fffaf0 100%);
+                border: 1px solid #dfe8e4;
+                border-radius: 16px;
+                padding: 0.8rem;
+                margin: 0 0 0.9rem;
+                color: #10313a;
+            }
+
+            .bgc-flow-helper-v3 strong {
+                display: block;
+                font-size: 0.86rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .bgc-flow-helper-v3 span {
+                color: #607276;
+                font-size: 0.8rem;
+                line-height: 1.28;
+                display: block;
+            }
+
+            .bgc-workflow-step-v3 {
+                display: grid;
+                grid-template-columns: 30px 1fr;
+                gap: 0.7rem;
+                align-items: start;
+                width: 100%;
+                box-sizing: border-box;
+                border: 1px solid #e5ece7;
+                border-radius: 14px;
+                padding: 0.72rem;
+                margin: 0 0 0.55rem;
+                background: #ffffff;
+            }
+
+            .bgc-workflow-step-active-v3 {
+                background: #eaf6ee;
+                border-color: #cfe6d8;
+                box-shadow: inset 4px 0 0 #2f7a55;
+            }
+
+            .bgc-step-number-v3 {
+                width: 28px;
+                height: 28px;
+                border-radius: 999px;
+                background: #eef3ef;
+                color: #165c3a;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.78rem;
+                font-weight: 950;
+            }
+
+            .bgc-workflow-step-active-v3 .bgc-step-number-v3 {
+                background: #2f7a55;
+                color: #ffffff;
+            }
+
+            .bgc-step-title-v3 {
+                color: #10313a;
+                font-size: 0.92rem;
+                font-weight: 900;
+                line-height: 1.18;
+                margin-bottom: 0.12rem;
+            }
+
+            .bgc-step-help-v3 {
+                color: #607276;
+                font-size: 0.76rem;
+                line-height: 1.25;
+            }
+
+            .bgc-step-pages-v3 {
+                color: #7a8a8d;
+                font-size: 0.72rem;
+                font-weight: 800;
+                margin-top: 0.32rem;
+            }
+
+            .bgc-team-link-v3,
+            .bgc-team-link-active-v3 {
+                border-radius: 12px;
+                min-height: 40px;
+                padding: 0.62rem 0.72rem;
+                margin-bottom: 0.45rem;
+                display: flex;
+                align-items: center;
+                gap: 0.55rem;
+                font-size: 0.9rem;
+                font-weight: 750;
+                line-height: 1.2;
+            }
+
+            .bgc-team-link-active-v3 {
+                background: #eaf6ee;
+                color: #145c3b;
+                border: 1px solid #cfe6d8;
+            }
+
+            section[data-testid="stSidebar"] div.stButton > button {
+                width: 100%;
+                min-height: 38px;
+                border-radius: 12px;
+                background: #ffffff;
+                border: 1px solid #e5ece7;
+                color: #16343a;
+                box-shadow: none;
+                font-size: 0.82rem;
+                font-weight: 750;
+                padding: 0.45rem 0.5rem;
+                justify-content: flex-start;
+            }
+
+            section[data-testid="stSidebar"] div.stButton > button:hover {
+                background: #f3f8f5;
+                border-color: #cfe6d8;
+                color: #145c3b;
+                box-shadow: none;
+            }
+
             .bgc-selected-campaign-v2 {
                 background: #F8FAF7;
                 border: 1px solid #E5ECE7;
@@ -4979,20 +5101,54 @@ def campaign_recommendation_hero() -> None:
     )
 
 
+MARKETING_WORKFLOW_STEPS = [
+    {
+        "step": "1",
+        "title": "Intake",
+        "help": "Collect program updates and assets.",
+        "pages": [("Program & Asset Intake", "📝")],
+        "status": "Start here",
+    },
+    {
+        "step": "2",
+        "title": "Recommend",
+        "help": "Choose the strongest campaign.",
+        "pages": [("AI Campaign Recommendation", "✨")],
+        "status": "AI ranked",
+    },
+    {
+        "step": "3",
+        "title": "Create",
+        "help": "Build content, hooks, and drafts.",
+        "pages": [("AI Viral Content Engine", "🔥"), ("AI Content Studio", "✍️")],
+        "status": "Drafting",
+    },
+    {
+        "step": "4",
+        "title": "Plan",
+        "help": "Schedule digital and community activity.",
+        "pages": [("Campaign Planner", "📅")],
+        "status": "Calendar",
+    },
+    {
+        "step": "5",
+        "title": "Measure",
+        "help": "Review signals and impact.",
+        "pages": [("Trend & Performance Scan", "📊"), ("Impact Dashboard", "📈")],
+        "status": "Insights",
+    },
+]
+
+TEAM_WORKSPACE_PAGES = [
+    ("Shared Calendar", "📅", "Campaign and activity schedule"),
+    ("Department Message Board", "💬", "Cross-department updates"),
+    ("Asset Library", "📂", "Photos, clips, and reusable content"),
+]
+
 MARKETING_NAV_SECTIONS = [
     ("Overview", [("Dashboard", "🏠")]),
-    (
-        "Campaign Creation",
-        [
-            ("Program & Asset Intake", "📝"),
-            ("AI Campaign Recommendation", "✨"),
-            ("AI Viral Content Engine", "🔥"),
-            ("AI Content Studio", "✍️"),
-        ],
-    ),
-    ("Planning & Outreach", [("Campaign Planner", "📅"), ("Shared Calendar", "📅")]),
-    ("Performance & Insights", [("Trend & Performance Scan", "📊"), ("Impact Dashboard", "📈")]),
-    ("Assets & Collaboration", [("Asset Library", "📂"), ("Department Message Board", "💬")]),
+    ("Marketing Workflow", [(page_name, icon) for step in MARKETING_WORKFLOW_STEPS for page_name, icon in step["pages"]]),
+    ("Team Workspace", [(page_name, icon) for page_name, icon, _help in TEAM_WORKSPACE_PAGES]),
 ]
 
 DEPARTMENT_NAV_SECTIONS = [
@@ -5003,8 +5159,13 @@ DEPARTMENT_NAV_SECTIONS = [
 def render_sidebar_v2() -> str:
     """Render the rebuilt stable sidebar navigation and return active page."""
 
-    nav_sections = MARKETING_NAV_SECTIONS if st.session_state.role == "Marketing" else DEPARTMENT_NAV_SECTIONS
-    allowed_pages = [page_name for _section, items in nav_sections for page_name, _icon in items]
+    if st.session_state.role == "Marketing":
+        allowed_pages = ["Dashboard"] + [page_name for step in MARKETING_WORKFLOW_STEPS for page_name, _icon in step["pages"]] + [
+            page_name for page_name, _icon, _help in TEAM_WORKSPACE_PAGES
+        ]
+    else:
+        nav_sections = DEPARTMENT_NAV_SECTIONS
+        allowed_pages = [page_name for _section, items in nav_sections for page_name, _icon in items]
     current_page = st.session_state.get("page", st.session_state.active_page)
     if current_page not in allowed_pages:
         current_page = allowed_pages[0]
@@ -5045,31 +5206,106 @@ def render_sidebar_v2() -> str:
         st.session_state.active_page = "Dashboard"
         st.rerun()
 
-    for section, items in nav_sections:
+    if st.session_state.role == "Marketing":
+        if not st.session_state.calendar_briefs:
+            helper_text = "Start with Program & Asset Intake."
+        elif st.session_state.page in ["AI Content Studio", "AI Viral Content Engine"]:
+            helper_text = "Move ready drafts into Campaign Planner."
+        else:
+            helper_text = "Review the AI recommendation, then create content."
         st.sidebar.markdown(
             f"""
-            <div class="bgc-nav-section-v2">
-                <div class="bgc-nav-title-v2">{section}</div>
+            <div class="bgc-flow-helper-v3">
+                <strong>What should I do next?</strong>
+                <span>{helper_text}</span>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        for page_name, icon in items:
+
+        st.sidebar.markdown('<div class="bgc-nav-title-v2">Overview</div>', unsafe_allow_html=True)
+        if st.session_state.page == "Dashboard":
+            st.sidebar.markdown(
+                """
+                <div class="bgc-team-link-active-v3">
+                    <span>🏠</span><span>Dashboard</span>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+        elif st.sidebar.button("🏠 Dashboard", key="overview-nav-dashboard", use_container_width=True):
+            st.session_state.page = "Dashboard"
+            st.session_state.active_page = "Dashboard"
+            st.rerun()
+
+        st.sidebar.markdown('<div class="bgc-nav-title-v2">Marketing Workflow</div>', unsafe_allow_html=True)
+        for step in MARKETING_WORKFLOW_STEPS:
+            step_active = st.session_state.page in [page_name for page_name, _icon in step["pages"]]
+            active_class = " bgc-workflow-step-active-v3" if step_active else ""
+            pages_label = " + ".join(page_name.replace("AI ", "") for page_name, _icon in step["pages"])
+            st.sidebar.markdown(
+                f"""
+                <div class="bgc-workflow-step-v3{active_class}">
+                    <div class="bgc-step-number-v3">{step['step']}</div>
+                    <div>
+                        <div class="bgc-step-title-v3">{step['title']}</div>
+                        <div class="bgc-step-help-v3">{step['help']}</div>
+                        <div class="bgc-step-pages-v3">{pages_label}</div>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            page_cols = st.sidebar.columns(len(step["pages"]))
+            for col, (page_name, icon) in zip(page_cols, step["pages"]):
+                if col.button(f"{icon} {page_name.split('AI ')[-1]}", key=f"flow-nav-{page_name}", use_container_width=True):
+                    st.session_state.page = page_name
+                    st.session_state.active_page = page_name
+                    st.rerun()
+
+        st.sidebar.markdown('<div class="bgc-nav-title-v2">Team Workspace</div>', unsafe_allow_html=True)
+        for page_name, icon, help_text in TEAM_WORKSPACE_PAGES:
             if st.session_state.page == page_name:
                 st.sidebar.markdown(
                     f"""
-                    <div class="bgc-nav-link-active-v2">
-                        <span class="bgc-nav-icon-v2">{icon}</span>
-                        <span class="bgc-nav-label-v2">{page_name}</span>
+                    <div class="bgc-team-link-active-v3">
+                        <span>{icon}</span><span>{page_name}</span>
                     </div>
                     """,
                     unsafe_allow_html=True,
                 )
+                st.sidebar.caption(help_text)
             else:
-                if st.sidebar.button(f"{icon} {page_name}", key=f"nav-v2-{page_name}"):
+                if st.sidebar.button(f"{icon} {page_name}", key=f"team-nav-{page_name}", use_container_width=True):
                     st.session_state.page = page_name
                     st.session_state.active_page = page_name
                     st.rerun()
+    else:
+        for section, items in nav_sections:
+            st.sidebar.markdown(
+                f"""
+                <div class="bgc-nav-section-v2">
+                    <div class="bgc-nav-title-v2">{section}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            for page_name, icon in items:
+                if st.session_state.page == page_name:
+                    st.sidebar.markdown(
+                        f"""
+                        <div class="bgc-nav-link-active-v2">
+                            <span class="bgc-nav-icon-v2">{icon}</span>
+                            <span class="bgc-nav-label-v2">{page_name}</span>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    if st.sidebar.button(f"{icon} {page_name}", key=f"nav-v2-{page_name}"):
+                        st.session_state.page = page_name
+                        st.session_state.active_page = page_name
+                        st.rerun()
 
     if st.session_state.role == "Marketing":
         st.sidebar.markdown(
@@ -5419,20 +5655,11 @@ def render_generated_content_panel(text: str, channel: str, tone: str, score_dat
                 st.caption("DRAFT PREVIEW")
                 st.markdown(parts["body"])
 
-        insight_tabs = st.tabs(
-            [
-                "Content score analysis",
-                "Emotional breakdown",
-                "Why this works",
-                "Hashtags & CTA",
-                "Multi-platform adaptation",
-            ]
-        )
-        with insight_tabs[0]:
+        with st.expander("Content score analysis", expanded=False):
             st.metric("Overall Content Score", f"{score_data['overall']} / 100")
             st.progress(score_data["overall"] / 100)
             st.caption(f"Expected performance: {score_data['expected']} · Best platform: {score_data['best_platform']}")
-        with insight_tabs[1]:
+        with st.expander("Emotional breakdown", expanded=False):
             score_keys = {
                 "Emotional strength": "emotional",
                 "Shareability": "shareability",
@@ -5443,21 +5670,21 @@ def render_generated_content_panel(text: str, channel: str, tone: str, score_dat
                 with st.container(key=f"score_{score_keys[label]}_{panel_key}"):
                     st.caption(f"{label}: {value}")
                     st.progress(value / 100)
-        with insight_tabs[2]:
+        with st.expander("Why this works", expanded=False):
             bullet_colors = ["green", "blue", "green", "orange", "green"]
             for color, item in zip(bullet_colors, why_items):
                 st.markdown(f":{color}[●] {item}")
-            with st.expander("What could improve this content?"):
-                for item in score_data["feedback"]:
-                    st.markdown(f"- {item}")
-        with insight_tabs[3]:
+            st.markdown("**What could improve this content?**")
+            for item in score_data["feedback"]:
+                st.markdown(f"- {item}")
+        with st.expander("Hashtags & CTA", expanded=False):
             if parts["cta"]:
                 st.markdown("**CTA**")
                 st.info(parts["cta"])
             if parts["hashtags"]:
                 st.markdown("**Hashtags**")
                 st.caption(parts["hashtags"])
-        with insight_tabs[4]:
+        with st.expander("Multi-platform adaptation", expanded=False):
             st.markdown(
                 "- Adapt the hook as the first on-screen text for Reels.\n"
                 "- Use the proof point as the newsletter or partner email anchor.\n"
@@ -6036,64 +6263,64 @@ def trends_page() -> None:
                 unsafe_allow_html=True,
             )
 
-    st.subheader("Trend Matrix")
-    st.caption("X-axis: audience urgency | Y-axis: asset readiness")
-    matrix_cols = st.columns(4)
-    matrix_items = [
-        ("Act Now", "High urgency, strong assets", "MAP Education Support, After-School Recreation", "matrix-act"),
-        ("Build Assets", "High urgency, weaker assets", "Supper Club real-photo set", "matrix-build"),
-        ("Monitor", "Lower urgency, strong assets", "DCAC media stories", ""),
-        ("Low Priority", "Lower urgency, weaker assets", "Evergreen partner updates", ""),
-    ]
-    for col, (title, note, examples, klass) in zip(matrix_cols, matrix_items):
-        with col:
+    with st.expander("View full performance details", expanded=False):
+        st.subheader("Trend Matrix")
+        st.caption("X-axis: audience urgency | Y-axis: asset readiness")
+        matrix_cols = st.columns(4)
+        matrix_items = [
+            ("Act Now", "High urgency, strong assets", "MAP Education Support, After-School Recreation", "matrix-act"),
+            ("Build Assets", "High urgency, weaker assets", "Supper Club real-photo set", "matrix-build"),
+            ("Monitor", "Lower urgency, strong assets", "DCAC media stories", ""),
+            ("Low Priority", "Lower urgency, weaker assets", "Evergreen partner updates", ""),
+        ]
+        for col, (title, note, examples, klass) in zip(matrix_cols, matrix_items):
+            with col:
+                st.markdown(
+                    f"""
+                    <div class="matrix-card {klass}">
+                        <div class="kpi-label">{title}</div>
+                        <strong>{note}</strong>
+                        <p class="muted">{examples}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+        st.subheader("Trend Intelligence")
+        icons = ["🎒", "🧠", "🏠", "🤝", "🏀", "🍽️"]
+        for icon, (trend, program, audience, channel, angle, score) in zip(icons, TRENDS):
+            kind = "softgreen" if score >= 90 else "yellow"
             st.markdown(
                 f"""
-                <div class="matrix-card {klass}">
-                    <div class="kpi-label">{title}</div>
-                    <strong>{note}</strong>
-                    <p class="muted">{examples}</p>
+                <div class="trend-row">
+                    <div class="trend-icon">{icon}</div>
+                    <div>
+                        <strong>{trend}</strong><br>
+                        <span class="muted">{program} · {audience}</span>
+                    </div>
+                    <div>
+                        {badge(channel, 'navy')} {badge(str(score) + ' score', kind)}
+                        <div class="mini-progress"><span style="width:{score}%;"></span></div>
+                    </div>
+                    <div class="muted">{angle}</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
-
-    st.subheader("Trend Intelligence")
-    icons = ["🎒", "🧠", "🏠", "🤝", "🏀", "🍽️"]
-    for icon, (trend, program, audience, channel, angle, score) in zip(icons, TRENDS):
-        kind = "softgreen" if score >= 90 else "yellow"
+        st.subheader("Social Listening Snapshot")
+        insight_rows = "".join(
+            f'<div class="check-row"><span class="check-ok">✓ {insight}</span>{badge("Signal", "softgreen")}</div>'
+            for insight in SOCIAL_INSIGHTS
+        )
         st.markdown(
             f"""
-            <div class="trend-row">
-                <div class="trend-icon">{icon}</div>
-                <div>
-                    <strong>{trend}</strong><br>
-                    <span class="muted">{program} · {audience}</span>
-                </div>
-                <div>
-                    {badge(channel, 'navy')} {badge(str(score) + ' score', kind)}
-                    <div class="mini-progress"><span style="width:{score}%;"></span></div>
-                </div>
-                <div class="muted">{angle}</div>
+            <div class="panel-card">
+                <div class="kpi-label">Mock community and channel insights</div>
+                {insight_rows}
             </div>
             """,
             unsafe_allow_html=True,
         )
-
-    st.subheader("Social Listening Snapshot")
-    insight_rows = "".join(
-        f'<div class="check-row"><span class="check-ok">✓ {insight}</span>{badge("Signal", "softgreen")}</div>'
-        for insight in SOCIAL_INSIGHTS
-    )
-    st.markdown(
-        f"""
-        <div class="panel-card">
-            <div class="kpi-label">Mock community and channel insights</div>
-            {insight_rows}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
 
 def recommendation_page() -> None:
@@ -7309,9 +7536,11 @@ def shared_calendar_page() -> None:
         with st.container(border=True, key=key):
             event_platform = item["channel"] or item["goal"]
             st.badge(event_platform, color=channel_color(event_platform))
-            st.badge(item["status"], color=status_color(item["status"]))
             st.write(f"**{item['name']}**")
-            st.caption(item["department"])
+            with st.expander("Details", expanded=False):
+                st.badge(item["status"], color=status_color(item["status"]))
+                st.caption(item["department"])
+                st.caption(f"Source: {item['source']}")
 
     if view == "Week View":
         start = TODAY - timedelta(days=TODAY.weekday())
@@ -7460,7 +7689,6 @@ def shared_calendar_page() -> None:
                     <div class="calendar-event {event_class(item)}">
                         <strong>{html.escape(item['name'])}</strong>
                         <span class="calendar-event-meta">{html.escape(item['channel'] or item['goal'])}</span>
-                        <span class="calendar-status {status_class(item['status'])}">{html.escape(item['status'])}</span>
                     </div>
                     """
                 )
@@ -7482,23 +7710,33 @@ def impact_page() -> None:
     """Impact dashboard with deeper metrics and learning loop."""
 
     header("Impact Dashboard")
-    cols = st.columns(4)
-    for index, (label, value) in enumerate(IMPACT.items()):
-        with cols[index % 4]:
+    st.subheader("Donor-ready summary")
+    summary_cols = st.columns(4)
+    top_metrics = [
+        ("Program inquiries", IMPACT["Program inquiries"]),
+        ("Registration interest", IMPACT["Registration interest"]),
+        ("Volunteer interest", IMPACT["Volunteer interest"]),
+        ("Partner referrals", IMPACT["Partner referrals"]),
+    ]
+    for index, (label, value) in enumerate(top_metrics):
+        with summary_cols[index]:
             kpi(label, f"{value:,}", "Mock 30-day signal", index % 2 == 0)
 
-    st.subheader("Awareness to Attendance Funnel")
-    funnel_cols = st.columns(6)
-    for col, (label, value) in zip(funnel_cols, FUNNEL):
-        with col:
-            st.markdown(f'<div class="funnel"><strong>{value}</strong>{label}</div>', unsafe_allow_html=True)
+    with st.expander("Awareness to attendance funnel", expanded=False):
+        funnel_cols = st.columns(6)
+        for col, (label, value) in zip(funnel_cols, FUNNEL):
+            with col:
+                st.markdown(f'<div class="funnel"><strong>{value}</strong>{label}</div>', unsafe_allow_html=True)
 
-    left, right = st.columns([1.05, 0.95])
-    with left:
+    with st.expander("View full performance details", expanded=False):
+        cols = st.columns(4)
+        for index, (label, value) in enumerate(IMPACT.items()):
+            with cols[index % 4]:
+                kpi(label, f"{value:,}", "Mock 30-day signal", index % 2 == 0)
         st.subheader("Performance Mix")
         st.bar_chart(IMPACT)
-    with right:
-        st.subheader("Learning Loop")
+
+    with st.expander("Learning loop and next best campaign", expanded=False):
         learnings = [
             ("What performed well", "Parent-focused Facebook posts with clear registration details."),
             ("Audience response", "Young parents and school partners clicked most often."),
