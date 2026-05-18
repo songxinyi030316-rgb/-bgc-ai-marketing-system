@@ -513,6 +513,125 @@ def load_css() -> None:
                 margin-bottom: 12px;
             }
 
+            .workflow-topbar-shell {
+                background:
+                    radial-gradient(circle at 96% 18%, rgba(255, 210, 52, 0.22), transparent 20%),
+                    linear-gradient(135deg, #ffffff 0%, #f7fbf8 72%, #fffaf0 100%);
+                border: 1px solid #dfe8e4;
+                border-radius: 22px;
+                padding: 1rem 1.05rem 1.1rem;
+                margin: 0 0 1.15rem;
+                box-shadow: 0 16px 36px rgba(16, 49, 58, 0.075);
+            }
+
+            .workflow-topbar-title {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-bottom: 0.78rem;
+            }
+
+            .workflow-topbar-title strong {
+                display: block;
+                color: var(--navy);
+                font-size: 1.04rem;
+                line-height: 1.1;
+            }
+
+            .workflow-topbar-title span {
+                display: block;
+                color: var(--muted);
+                font-size: 0.82rem;
+                margin-top: 0.18rem;
+                font-weight: 700;
+            }
+
+            .workflow-topbar-campaign {
+                border-radius: 999px;
+                border: 1px solid #cfe6d8;
+                background: #eaf6ee;
+                color: var(--green-dark);
+                font-size: 0.76rem;
+                font-weight: 900;
+                padding: 0.36rem 0.7rem;
+                white-space: nowrap;
+            }
+
+            .workflow-top-active {
+                min-height: 86px;
+                border-radius: 18px;
+                background: linear-gradient(135deg, #2f7a55 0%, #1f6f4a 100%);
+                color: #ffffff;
+                border: 1px solid #2f7a55;
+                padding: 0.72rem 0.78rem;
+                box-shadow: 0 12px 24px rgba(31, 111, 74, 0.18);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .workflow-top-active .workflow-top-number {
+                background: rgba(255, 255, 255, 0.18);
+                color: #ffffff;
+            }
+
+            .workflow-top-number {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 26px;
+                height: 26px;
+                border-radius: 999px;
+                background: #eaf6ee;
+                color: var(--green-dark);
+                font-size: 0.72rem;
+                font-weight: 950;
+                margin-bottom: 0.35rem;
+            }
+
+            .workflow-top-label {
+                font-size: 0.9rem;
+                font-weight: 950;
+                line-height: 1.08;
+                white-space: nowrap;
+            }
+
+            .workflow-top-helper {
+                font-size: 0.7rem;
+                font-weight: 750;
+                color: rgba(255, 255, 255, 0.86);
+                line-height: 1.22;
+                margin-top: 0.2rem;
+            }
+
+            div[class*="st-key-workflow_top_"] button {
+                min-height: 86px !important;
+                width: 100% !important;
+                border-radius: 18px !important;
+                padding: 0.7rem 0.55rem !important;
+                background: #ffffff !important;
+                border: 1px solid #dfe8e4 !important;
+                color: #16343a !important;
+                box-shadow: 0 8px 18px rgba(16, 49, 58, 0.045) !important;
+                text-align: left !important;
+            }
+
+            div[class*="st-key-workflow_top_"] button:hover {
+                background: #eef8f2 !important;
+                border-color: #b9d9c6 !important;
+                color: #145c3b !important;
+                box-shadow: 0 10px 22px rgba(16, 49, 58, 0.06) !important;
+            }
+
+            div[class*="st-key-workflow_top_"] button p {
+                font-size: 0.84rem !important;
+                line-height: 1.18 !important;
+                font-weight: 900 !important;
+                margin: 0 !important;
+                white-space: pre-line !important;
+            }
+
             .command-header {
                 position: relative;
                 background: #ffffff;
@@ -5426,6 +5545,16 @@ TEAM_WORKSPACE_PAGES = [
     ("Asset Library", "📂", "Photos, clips, and reusable content"),
 ]
 
+WORKFLOW_TOPBAR_PAGES = [
+    ("1", "Intake", "Program & Asset Intake", "Program update + assets"),
+    ("2", "Recommend", "AI Campaign Recommendation", "Best campaign to run"),
+    ("3A", "Ideas", "AI Viral Content Engine", "Hooks + short-form ideas"),
+    ("3B", "Drafts", "AI Content Studio", "Copy + scoring"),
+    ("4", "Plan", "Campaign Planner", "Schedule + outreach"),
+    ("5A", "Trends", "Trend & Performance Scan", "Signals + opportunities"),
+    ("5B", "Impact", "Impact Dashboard", "Results + donor proof"),
+]
+
 MARKETING_NAV_SECTIONS = [
     ("Overview", [("Dashboard", "🏠")]),
     ("Marketing Workflow", [(page_name, icon) for step in MARKETING_WORKFLOW_STEPS for page_name, icon in step["pages"]]),
@@ -5520,33 +5649,6 @@ def render_sidebar_v2() -> str:
             st.session_state.active_page = "Dashboard"
             st.rerun()
 
-        st.sidebar.markdown('<div class="bgc-nav-title-v2">Marketing Workflow</div>', unsafe_allow_html=True)
-        workflow_links = [
-            ("1", "Intake", "Program & Asset Intake", "Program update + assets"),
-            ("2", "Recommend", "AI Campaign Recommendation", "Best campaign to run"),
-            ("3A", "Ideas", "AI Viral Content Engine", "Hooks + video ideas"),
-            ("3B", "Drafts", "AI Content Studio", "Copy + scoring"),
-            ("4", "Plan", "Campaign Planner", "Weekly + community plan"),
-            ("5A", "Trends", "Trend & Performance Scan", "Signals + opportunities"),
-            ("5", "Impact", "Impact Dashboard", "Results + donor proof"),
-        ]
-        for step_number, label, page_name, helper in workflow_links:
-            if st.session_state.page == page_name:
-                st.sidebar.markdown(
-                    f"""
-                    <div class="bgc-sidebar-link-v4 bgc-sidebar-link-active-v4">
-                        <span class="bgc-sidebar-step-v4">{step_number}</span>
-                        <span>{label}<span class="bgc-sidebar-link-sub-v4">{helper}</span></span>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-            else:
-                if st.sidebar.button(f"{step_number} {label}", key=f"flow-nav-{page_name}", use_container_width=True):
-                    st.session_state.page = page_name
-                    st.session_state.active_page = page_name
-                    st.rerun()
-
         st.sidebar.markdown('<div class="bgc-nav-title-v2">Team Workspace</div>', unsafe_allow_html=True)
         for page_name, icon, help_text in TEAM_WORKSPACE_PAGES:
             if st.session_state.page == page_name:
@@ -5602,6 +5704,51 @@ def render_sidebar_v2() -> str:
 
     st.sidebar.caption("Mock data only. No external API calls. Built for fast nonprofit marketing demos.")
     return st.session_state.page
+
+
+def render_workflow_topbar() -> None:
+    """Render a horizontal guided marketing workflow in the main canvas."""
+
+    current_page = st.session_state.get("page", "Dashboard")
+    st.markdown(
+        f"""
+        <div class="workflow-topbar-shell">
+            <div class="workflow-topbar-title">
+                <div>
+                    <strong>Step-by-step marketing workflow</strong>
+                    <span>Start with intake, choose the best campaign, create content, plan outreach, then measure impact.</span>
+                </div>
+                <div class="workflow-topbar-campaign">Campaign: {html.escape(st.session_state.selected_campaign)}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    cols = st.columns(len(WORKFLOW_TOPBAR_PAGES), gap="small")
+    for index, (step_number, label, page_name, helper) in enumerate(WORKFLOW_TOPBAR_PAGES):
+        with cols[index]:
+            if current_page == page_name:
+                st.markdown(
+                    f"""
+                    <div class="workflow-top-active">
+                        <span class="workflow-top-number">{html.escape(step_number)}</span>
+                        <div class="workflow-top-label">{html.escape(label)}</div>
+                        <div class="workflow-top-helper">{html.escape(helper)}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                if st.button(
+                    f"{step_number} {label}\n{helper}",
+                    key=f"workflow_top_{index}_{page_name}",
+                    use_container_width=True,
+                ):
+                    st.session_state.page = page_name
+                    st.session_state.active_page = page_name
+                    st.rerun()
+
+    st.markdown("<div style='height:1.05rem;'></div>", unsafe_allow_html=True)
 
 
 def badge(text: str, kind: str = "navy") -> str:
@@ -8317,6 +8464,8 @@ def main() -> None:
         return
 
     page = render_sidebar_v2()
+    if st.session_state.role == "Marketing":
+        render_workflow_topbar()
 
     if page == "Dashboard":
         dashboard_page()
