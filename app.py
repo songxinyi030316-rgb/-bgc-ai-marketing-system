@@ -2759,7 +2759,7 @@ def load_css() -> None:
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                padding: 40px !important;
+                padding: 28px !important;
                 box-sizing: border-box;
                 position: relative;
                 overflow: hidden;
@@ -2792,8 +2792,8 @@ def load_css() -> None:
             .stHorizontalBlock.st-key-login_card {
                 width: min(1120px, calc(100vw - 32px)) !important;
                 max-width: calc(100vw - 32px);
-                height: 660px !important;
-                min-height: 660px !important;
+                height: 600px !important;
+                min-height: 600px !important;
                 background: #ffffff !important;
                 border: 1px solid #E5ECE7 !important;
                 border-radius: 32px !important;
@@ -2818,22 +2818,22 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:first-child {
                 align-self: stretch !important;
-                height: 660px !important;
-                min-height: 660px !important;
-                background: #0f3738 !important;
+                height: 600px !important;
+                min-height: 600px !important;
+                background: #ffffff !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                padding: 18px !important;
+                padding: 0 !important;
                 overflow: hidden !important;
                 box-sizing: border-box !important;
             }
 
             .stHorizontalBlock.st-key-login_card > div:nth-child(2) {
                 align-self: stretch !important;
-                height: 660px !important;
-                min-height: 660px !important;
-                padding: 40px 44px 24px !important;
+                height: 600px !important;
+                min-height: 600px !important;
+                padding: 34px 42px 28px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -2845,30 +2845,30 @@ def load_css() -> None:
 
             .st-key-login_hero_image img {
                 width: 100% !important;
-                height: auto !important;
-                max-height: 92% !important;
-                object-fit: contain !important;
+                height: 100% !important;
+                max-height: none !important;
+                object-fit: cover !important;
                 object-position: center !important;
                 display: block !important;
-                background: #0f3738;
+                background: #ffffff;
             }
 
             .st-key-login_hero_image,
             .st-key-login_hero_image [data-testid="stImage"] {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 624px !important;
+                min-height: 600px !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                background: #0f3738 !important;
+                background: #ffffff !important;
             }
 
             .st-key-login_form_panel {
                 width: 100% !important;
-                max-width: 430px !important;
+                max-width: 420px !important;
                 overflow: visible !important;
-                margin-top: 28px !important;
+                margin-top: 0 !important;
             }
 
             .st-key-login_card div[data-testid="stForm"] {
@@ -2880,7 +2880,7 @@ def load_css() -> None:
             }
 
             .st-key-login_card div[data-testid="stForm"] [data-testid="stVerticalBlock"] {
-                gap: 8px !important;
+                gap: 6px !important;
             }
 
             .st-key-login_card div[data-testid="stTextInput"],
@@ -2935,8 +2935,8 @@ def load_css() -> None:
 
             .login-system-title {
                 color: var(--navy) !important;
-                margin: 0 0 10px !important;
-                font-size: 28px;
+                margin: 0 0 8px !important;
+                font-size: 26px;
                 line-height: 1.08;
                 letter-spacing: 0;
                 font-weight: 800;
@@ -2944,9 +2944,9 @@ def load_css() -> None:
 
             .login-subtitle {
                 color: var(--muted) !important;
-                font-size: 0.88rem;
-                line-height: 1.32;
-                margin: 0 0 16px;
+                font-size: 0.84rem;
+                line-height: 1.28;
+                margin: 0 0 12px;
             }
 
             .st-key-login_card label {
@@ -2957,7 +2957,7 @@ def load_css() -> None:
 
             .st-key-login_card input,
             .st-key-login_card div[data-baseweb="select"] > div {
-                min-height: 2.25rem;
+                min-height: 2.12rem;
                 border-radius: 14px;
                 font-size: 0.9rem;
             }
@@ -2965,7 +2965,7 @@ def load_css() -> None:
             .st-key-login_card div[data-testid="stFormSubmitButton"] button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.2rem;
+                min-height: 2.14rem;
                 font-size: 0.9rem;
                 margin-top: 0;
                 border-radius: 14px;
@@ -2989,7 +2989,7 @@ def load_css() -> None:
             .st-key-login_form_panel div.stButton > button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.2rem;
+                min-height: 2.14rem;
                 font-size: 0.9rem;
                 border-radius: 14px;
                 background: #ffffff !important;
@@ -3012,7 +3012,7 @@ def load_css() -> None:
                 color: var(--muted);
                 font-weight: 850;
                 font-size: 0.82rem;
-                margin: 14px 0 12px;
+                margin: 10px 0 9px;
             }
 
             .login-divider::before,
@@ -3031,7 +3031,7 @@ def load_css() -> None:
                 color: var(--muted);
                 font-size: 0.72rem;
                 line-height: 1.22;
-                margin-top: 0.08rem;
+                margin-top: 0.1rem;
             }
 
             .message-card {
