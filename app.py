@@ -86,7 +86,7 @@ def load_css() -> None:
             }
 
             section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
-                gap: 0.42rem !important;
+                gap: 0.22rem !important;
             }
 
             section[data-testid="stSidebar"] [data-testid="stElementContainer"],
@@ -360,26 +360,26 @@ def load_css() -> None:
                 display: flex;
                 align-items: center;
                 gap: 0.62rem;
-                min-height: 40px;
-                border-radius: 12px;
-                padding: 0.58rem 0.7rem;
-                margin: 0 0 0.5rem;
-                background: #ffffff;
-                border: 1px solid #e5ece7;
+                min-height: 48px;
+                border-radius: 16px;
+                padding: 0.62rem 0.72rem;
+                margin: 0 0 0.38rem;
+                background: linear-gradient(135deg, #f7fbf8 0%, #ffffff 100%);
+                border: 1px solid #dfeae3;
                 color: #16343a;
                 box-sizing: border-box;
-                font-size: 0.88rem;
-                font-weight: 760;
+                font-size: 0.9rem;
+                font-weight: 820;
                 line-height: 1.18;
                 position: relative;
                 z-index: 1;
             }
 
             .bgc-sidebar-link-active-v4 {
-                background: #eaf6ee;
-                border-color: #cfe6d8;
+                background: linear-gradient(135deg, #eaf6ee 0%, #f8fbf9 100%);
+                border-color: #bdddc9;
                 color: #145c3b;
-                box-shadow: inset 4px 0 0 #2f7a55;
+                box-shadow: inset 5px 0 0 #2f7a55, 0 8px 18px rgba(16, 49, 58, 0.055);
                 font-weight: 900;
             }
 
@@ -412,22 +412,26 @@ def load_css() -> None:
 
             section[data-testid="stSidebar"] div.stButton > button {
                 width: 100%;
-                min-height: 38px;
-                border-radius: 12px;
-                background: #ffffff;
-                border: 1px solid #e5ece7;
-                color: #16343a;
+                min-height: 46px;
+                border-radius: 15px;
+                background: linear-gradient(135deg, #f8fbf9 0%, #ffffff 100%);
+                border: 1px solid #e0ebe5;
+                color: #17573b;
                 box-shadow: none;
-                font-size: 0.84rem;
-                font-weight: 750;
-                padding: 0.45rem 0.5rem;
+                font-size: 0.86rem;
+                font-weight: 850;
+                padding: 0.58rem 0.68rem;
                 justify-content: flex-start;
-                margin-bottom: 0.25rem;
+                margin-bottom: 0.18rem;
+            }
+
+            section[data-testid="stSidebar"] div.stButton {
+                margin: 0 0 0.24rem !important;
             }
 
             section[data-testid="stSidebar"] div.stButton > button p {
                 font-size: 0.88rem !important;
-                font-weight: 780 !important;
+                font-weight: 850 !important;
                 line-height: 1.15 !important;
                 white-space: nowrap !important;
                 overflow: hidden !important;
@@ -436,8 +440,8 @@ def load_css() -> None:
             }
 
             section[data-testid="stSidebar"] div.stButton > button:hover {
-                background: #f3f8f5;
-                border-color: #cfe6d8;
+                background: #eef8f2;
+                border-color: #b9d9c6;
                 color: #145c3b;
                 box-shadow: none;
             }
@@ -1225,7 +1229,12 @@ def load_css() -> None:
             }
 
             div[data-testid="stPills"] {
-                margin-bottom: 0.35rem;
+                margin: 0.4rem 0 1rem;
+                background: #f8fbf9;
+                border: 1px solid #e0ebe5;
+                border-radius: 18px;
+                padding: 0.45rem;
+                box-shadow: 0 10px 22px rgba(16, 49, 58, 0.035);
             }
 
             div[data-testid="stPills"] button {
@@ -1233,9 +1242,10 @@ def load_css() -> None:
                 border: 1px solid var(--line) !important;
                 color: var(--ink) !important;
                 box-shadow: none !important;
-                padding: 0.34rem 0.68rem !important;
-                min-height: 2rem !important;
+                padding: 0.56rem 0.9rem !important;
+                min-height: 2.4rem !important;
                 font-weight: 850 !important;
+                border-radius: 999px !important;
             }
 
             div[data-testid="stPills"] button:hover {
@@ -1247,10 +1257,70 @@ def load_css() -> None:
             }
 
             div[data-testid="stPills"] button[aria-pressed="true"],
+            div[data-testid="stPills"] button[aria-selected="true"],
+            div[data-testid="stPills"] button[aria-checked="true"],
+            div[data-testid="stPills"] button[data-selected="true"],
+            div[data-testid="stPills"] button[kind="primary"],
             div[data-testid="stPills"] button[data-baseweb="tag"][aria-selected="true"] {
-                background: var(--green-soft) !important;
-                border-color: var(--green) !important;
+                background: linear-gradient(135deg, #eaf6ee 0%, #fff8dc 100%) !important;
+                border-color: #2f7a55 !important;
                 color: var(--green-dark) !important;
+                box-shadow: inset 0 0 0 1px rgba(47, 122, 85, 0.12) !important;
+            }
+
+            div[data-testid="stTabs"] [role="tablist"] {
+                gap: 0.55rem;
+                background: #f8fbf9;
+                border: 1px solid #e0ebe5;
+                border-radius: 18px;
+                padding: 0.45rem;
+                margin: 0.8rem 0 1.1rem;
+                box-shadow: 0 10px 22px rgba(16, 49, 58, 0.035);
+            }
+
+            div[data-testid="stTabs"] [role="tab"] {
+                border-radius: 999px !important;
+                border: 1px solid #dfe8e4 !important;
+                background: #ffffff !important;
+                color: #16343a !important;
+                padding: 0.42rem 0.9rem !important;
+                min-height: 2.35rem !important;
+            }
+
+            div[data-testid="stTabs"] [role="tab"] p {
+                font-weight: 850 !important;
+                font-size: 0.92rem !important;
+                color: inherit !important;
+            }
+
+            div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+                background: linear-gradient(135deg, #eaf6ee 0%, #fff8dc 100%) !important;
+                border-color: #2f7a55 !important;
+                color: #145c3b !important;
+                box-shadow: 0 6px 14px rgba(16, 49, 58, 0.06) !important;
+            }
+
+            div[data-testid="stTabs"] [role="tab"][aria-selected="true"] p {
+                color: #145c3b !important;
+            }
+
+            div[data-testid="stTabs"] [role="tablist"] button::after {
+                display: none !important;
+            }
+
+            div[data-testid="stExpander"] {
+                border: 1px solid #dfe8e4 !important;
+                border-radius: 16px !important;
+                overflow: hidden;
+                box-shadow: 0 8px 18px rgba(16, 49, 58, 0.035);
+                margin-bottom: 0.78rem;
+            }
+
+            div[data-testid="stExpander"] details > summary {
+                background: linear-gradient(135deg, #f8fbf9 0%, #fffaf0 100%) !important;
+                min-height: 3rem;
+                font-weight: 850 !important;
+                color: #16343a !important;
             }
 
             .asset-card {
@@ -5090,6 +5160,66 @@ def ranked_programs() -> list[dict]:
     return sorted(PROGRAMS, key=recommendation_score, reverse=True)
 
 
+def custom_program_from_state() -> dict | None:
+    """Build a temporary campaign object from the latest Program Intake fields."""
+
+    selected_name = st.session_state.get("selected_campaign", "").strip()
+    known_names = {program["name"] for program in PROGRAMS}
+    intake_name = st.session_state.get("intake_program_name", "").strip()
+    if not selected_name and not intake_name:
+        return None
+    campaign_name = selected_name or intake_name
+    if campaign_name in known_names:
+        return None
+
+    latest_brief = st.session_state.get("latest_intake_brief", {})
+    assets = latest_brief.get("available_assets") or ["Photos"]
+    if "None" in assets:
+        assets = []
+    audience_items = latest_brief.get("target_audience") or ["Community", "Families"]
+    goal = latest_brief.get("goal", "Awareness")
+    key_message = latest_brief.get("key_message") or "A BGC London program update ready for community storytelling."
+
+    return {
+        "name": campaign_name,
+        "segment": latest_brief.get("segment", "Program"),
+        "audience": ", ".join(audience_items),
+        "date": latest_brief.get("program_date", TODAY + timedelta(days=14)),
+        "urgency": latest_brief.get("urgency", "High"),
+        "assets": assets or ["Photos"],
+        "asset_quality": latest_brief.get("asset_quality", "Medium"),
+        "past_engagement": 88,
+        "mission_alignment": 92,
+        "audience_fit": 90,
+        "proof": "New staff-submitted program brief",
+        "angle": key_message,
+        "required_assets": "Program photo, staff quote, clear next step",
+        "channels": ["Instagram", "Facebook", "Newsletter", "Partners"] if goal != "Partner update" else ["LinkedIn", "Newsletter", "Partners"],
+    }
+
+
+def ranked_programs_with_current() -> list[dict]:
+    """Return ranked programs, including the latest intake campaign when custom."""
+
+    custom_program = custom_program_from_state()
+    programs = [custom_program] + PROGRAMS if custom_program else PROGRAMS
+    return sorted(programs, key=recommendation_score, reverse=True)
+
+
+def get_program_or_current(name: str) -> dict:
+    """Find a known program or return the current custom intake campaign."""
+
+    for program in PROGRAMS:
+        if program["name"] == name:
+            return program
+    custom_program = custom_program_from_state()
+    if custom_program and custom_program["name"] == name:
+        return custom_program
+    if custom_program:
+        return custom_program
+    return get_program(name)
+
+
 # ---------------------------------------------------------------------------
 # Shared UI helpers
 # ---------------------------------------------------------------------------
@@ -5107,6 +5237,10 @@ def init_state() -> None:
         st.session_state.role = "Marketing"
     if "selected_campaign" not in st.session_state:
         st.session_state.selected_campaign = ranked_programs()[0]["name"]
+    if "intake_program_name" not in st.session_state:
+        st.session_state.intake_program_name = st.session_state.selected_campaign
+    if "latest_intake_brief" not in st.session_state:
+        st.session_state.latest_intake_brief = {}
     if "planner_items" not in st.session_state:
         st.session_state.planner_items = ["MAP scholarship post", "After-school parent post"]
     if "active_page" not in st.session_state:
@@ -6115,8 +6249,7 @@ def dashboard_page() -> None:
 
     header("Dashboard")
     dashboard_hero()
-    recommended = ranked_programs()[0]
-    set_recommended_campaign(recommended["name"])
+    recommended = get_program_or_current(st.session_state.selected_campaign)
 
     left, right = st.columns([0.65, 0.35], gap="large")
     with left:
@@ -6199,7 +6332,7 @@ def dashboard_page() -> None:
     with right:
         with st.expander("Today’s actions", expanded=True):
             actions = [
-                ("Generate MAP Instagram draft", "Ready"),
+                (f"Generate {recommended['name']} Instagram draft", "Ready"),
                 ("Request student quote asset", "Needs Assets"),
                 ("Add Supper Club post to calendar", "Draft"),
                 ("Review viral content idea", "Ready"),
@@ -6257,7 +6390,9 @@ def intake_page() -> None:
         st.markdown('<div class="panel-card">', unsafe_allow_html=True)
         st.markdown("### Internal Campaign Brief")
         st.markdown('<div class="form-section-title">Program Basics</div>', unsafe_allow_html=True)
-        program_name = st.text_input("Program name", value=st.session_state.selected_campaign)
+        program_name = st.text_input("Program name", key="intake_program_name")
+        if program_name.strip():
+            st.session_state.selected_campaign = program_name.strip()
         st.markdown('<div class="helper-text">Use the public-facing program name staff and families recognize.</div>', unsafe_allow_html=True)
         basic_cols = st.columns(2)
         with basic_cols[0]:
@@ -6291,31 +6426,41 @@ def intake_page() -> None:
         with asset_cols[1]:
             urgency = st.select_slider("Urgency level", options=["Low", "Medium", "High"], value="High")
         st.markdown('<div class="helper-text">Higher quality visuals and testimonials improve campaign confidence.</div>', unsafe_allow_html=True)
+        current_brief = {
+            "program_name": program_name.strip() or "Untitled campaign brief",
+            "segment": segment,
+            "activity_timing": activity,
+            "program_date": program_date,
+            "goal": goal,
+            "target_audience": list(audience),
+            "key_message": key_message.strip(),
+            "available_assets": list(assets),
+            "asset_quality": quality,
+            "urgency": urgency,
+            "department": st.session_state.department,
+            "user_email": st.session_state.user_email,
+            "status": brief_calendar_status(list(assets), key_message),
+            "source": "Program Intake",
+        }
+        st.session_state.latest_intake_brief = current_brief
         action_cols = st.columns([1, 1, 1.45])
         with action_cols[0]:
             if st.button("Save brief", key="save-brief"):
+                st.session_state.selected_campaign = current_brief["program_name"]
                 st.success("Brief saved in the mock workspace.")
         with action_cols[1]:
             if st.button("Send to AI recommendation", key="send-brief"):
+                st.session_state.selected_campaign = current_brief["program_name"]
+                st.session_state.selected_recommendation = current_brief["program_name"]
+                st.session_state.page = "AI Campaign Recommendation"
+                st.session_state.active_page = "AI Campaign Recommendation"
                 st.success("Brief sent to the mock recommendation engine.")
+                st.rerun()
         with action_cols[2]:
             if st.button("Save brief to shared calendar", key="save-brief-calendar"):
-                calendar_brief = {
-                    "program_name": program_name.strip() or "Untitled campaign brief",
-                    "segment": segment,
-                    "activity_timing": activity,
-                    "program_date": program_date,
-                    "goal": goal,
-                    "target_audience": list(audience),
-                    "key_message": key_message.strip(),
-                    "available_assets": list(assets),
-                    "asset_quality": quality,
-                    "department": st.session_state.department,
-                    "user_email": st.session_state.user_email,
-                    "status": brief_calendar_status(list(assets), key_message),
-                    "source": "Program Intake",
-                }
-                save_brief_to_shared_calendar(calendar_brief)
+                st.session_state.selected_campaign = current_brief["program_name"]
+                st.session_state.selected_recommendation = current_brief["program_name"]
+                save_brief_to_shared_calendar(current_brief)
                 st.success("Brief saved to shared calendar.")
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -6523,13 +6668,13 @@ def recommendation_page() -> None:
         st.dataframe(rows, width="stretch", hide_index=True)
         return
 
-    ranked = ranked_programs()
+    ranked = ranked_programs_with_current()
     if "selected_recommendation" not in st.session_state:
         st.session_state.selected_recommendation = st.session_state.selected_campaign
     if st.session_state.selected_recommendation not in [program["name"] for program in ranked]:
-        st.session_state.selected_recommendation = ranked[0]["name"]
-    selected_program = get_program(st.session_state.selected_recommendation)
-    top_program = ranked[0]
+        st.session_state.selected_recommendation = st.session_state.selected_campaign if st.session_state.selected_campaign in [program["name"] for program in ranked] else ranked[0]["name"]
+    selected_program = next(program for program in ranked if program["name"] == st.session_state.selected_recommendation)
+    top_program = selected_program if selected_program["name"] == st.session_state.selected_campaign else ranked[0]
 
     st.subheader("#1 Recommended Campaign")
     st.markdown(
@@ -6644,7 +6789,7 @@ def recommendation_page() -> None:
 
     st.subheader("Comparison Table")
     rows = []
-    for program in ranked_programs():
+    for program in ranked_programs_with_current():
         rows.append(
             {
                 "Program": program["name"],
@@ -6739,25 +6884,40 @@ def viral_content_engine_page() -> None:
             st.write(f"**Suggested BGC adaptation:** {adaptation}")
 
     st.subheader("Best Program for Current Trends")
-    match_cols = st.columns(3)
-    for index, item in enumerate(VIRAL_PROGRAM_MATCHES):
-        score_adjustment = 4 if mode in ["Youth Engagement", "Parent Engagement"] and item["program"] in ["MAP Education Support", "After-School Recreation"] else 0
-        adjusted_score = min(98, item["score"] + score_adjustment)
-        with match_cols[index % 3]:
-            active_style = "background:#f7fbf8;border-color:#cfe3d6;" if item["program"] == selected_program else ""
-            st.markdown(
-                f"""
-                <div class="viral-match-card" style="{active_style}">
-                    {badge(str(adjusted_score) + ' Viral Potential', 'yellow')}
-                    <h3 style="margin:0.55rem 0 0.25rem;">{item['program']}</h3>
-                    <p><strong>Best trend:</strong> {item['trend']}</p>
-                    <p><strong>Why it fits:</strong> {item['why']}</p>
-                    <p><strong>Suggested platform:</strong> {item['platform']}</p>
-                    <p style="margin-bottom:0;"><strong>Filming style:</strong> {item['style']}</p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+    selected_match_score = min(
+        98,
+        selected_match["score"]
+        + (4 if mode in ["Youth Engagement", "Parent Engagement"] and selected_match["program"] in ["MAP Education Support", "After-School Recreation"] else 0),
+    )
+    st.markdown(
+        f"""
+        <div class="viral-match-card" style="background:linear-gradient(135deg,#f7fbf8 0%,#fffaf0 100%);border-color:#cfe3d6;">
+            {badge(str(selected_match_score) + ' Viral Potential', 'yellow')} {badge(selected_match['platform'], 'softgreen')}
+            <h3 style="margin:0.55rem 0 0.25rem;">{selected_match['program']}</h3>
+            <p><strong>Best trend:</strong> {selected_match['trend']}</p>
+            <p><strong>Why it fits:</strong> {selected_match['why']}</p>
+            <p style="margin-bottom:0;"><strong>Filming style:</strong> {selected_match['style']}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    with st.expander("Compare other program matches", expanded=False):
+        match_cols = st.columns(3)
+        for index, item in enumerate(VIRAL_PROGRAM_MATCHES):
+            score_adjustment = 4 if mode in ["Youth Engagement", "Parent Engagement"] and item["program"] in ["MAP Education Support", "After-School Recreation"] else 0
+            adjusted_score = min(98, item["score"] + score_adjustment)
+            with match_cols[index % 3]:
+                st.markdown(
+                    f"""
+                    <div class="viral-match-card">
+                        {badge(str(adjusted_score) + ' Viral Potential', 'yellow')}
+                        <h3 style="margin:0.55rem 0 0.25rem;">{item['program']}</h3>
+                        <p><strong>Best trend:</strong> {item['trend']}</p>
+                        <p><strong>Platform:</strong> {item['platform']}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
     st.subheader("Viral Hook Generator")
     mode_hook_groups = {
@@ -6945,14 +7105,16 @@ def content_studio_page() -> None:
 
     header("AI Content Studio")
     content_studio_hero()
-    program_names = [program["name"] for program in PROGRAMS]
+    program_names = [program["name"] for program in ranked_programs_with_current()]
+    if st.session_state.selected_campaign not in program_names:
+        program_names.insert(0, st.session_state.selected_campaign)
     selected_name = st.selectbox(
         "Recommended campaign",
         program_names,
         index=program_names.index(st.session_state.selected_campaign),
     )
     set_recommended_campaign(selected_name)
-    program = get_program(selected_name)
+    program = get_program_or_current(selected_name)
     st.markdown(
         """
         <div class="mode-helper-card">
