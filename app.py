@@ -2790,10 +2790,10 @@ def load_css() -> None:
             }
 
             .stHorizontalBlock.st-key-login_card {
-                width: min(1280px, calc(100vw - 36px)) !important;
+                width: min(1240px, calc(100vw - 36px)) !important;
                 max-width: calc(100vw - 32px);
-                height: 620px !important;
-                min-height: 620px !important;
+                height: 560px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
                 border: 1px solid #E5ECE7 !important;
                 border-radius: 32px !important;
@@ -2804,7 +2804,7 @@ def load_css() -> None:
                 z-index: 1;
                 margin: 0 auto !important;
                 display: grid !important;
-                grid-template-columns: 1.55fr 1fr;
+                grid-template-columns: 1.95fr 1fr;
                 align-items: stretch !important;
                 gap: 0 !important;
                 overflow: hidden !important;
@@ -2818,8 +2818,8 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:first-child {
                 align-self: stretch !important;
-                height: 620px !important;
-                min-height: 620px !important;
+                height: 560px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
                 display: flex !important;
                 align-items: center !important;
@@ -2831,9 +2831,9 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:nth-child(2) {
                 align-self: stretch !important;
-                height: 620px !important;
-                min-height: 620px !important;
-                padding: 46px 50px !important;
+                height: 560px !important;
+                min-height: 560px !important;
+                padding: 30px 34px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -2856,7 +2856,7 @@ def load_css() -> None:
             .login-hero-fill {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 620px !important;
+                min-height: 560px !important;
                 display: block !important;
                 overflow: hidden !important;
                 background: #ffffff !important;
@@ -2865,7 +2865,7 @@ def load_css() -> None:
             .st-key-login_hero_image {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 620px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
             }
 
@@ -2883,7 +2883,7 @@ def load_css() -> None:
 
             .st-key-login_form_panel {
                 width: 100% !important;
-                max-width: 440px !important;
+                max-width: 340px !important;
                 overflow: visible !important;
                 margin-top: 0 !important;
             }
@@ -2897,7 +2897,7 @@ def load_css() -> None:
             }
 
             .st-key-login_card div[data-testid="stForm"] [data-testid="stVerticalBlock"] {
-                gap: 6px !important;
+                gap: 4px !important;
             }
 
             .st-key-login_card div[data-testid="stTextInput"],
@@ -2952,40 +2952,38 @@ def load_css() -> None:
 
             .login-system-title {
                 color: var(--navy) !important;
-                margin: 0 0 12px !important;
-                font-size: 30px;
-                line-height: 1.1;
+                margin: 0 0 18px !important;
+                font-size: 24px;
+                line-height: 1.12;
                 letter-spacing: 0;
                 font-weight: 800;
             }
 
             .login-subtitle {
                 color: var(--muted) !important;
-                font-size: 0.9rem;
-                line-height: 1.35;
-                margin: 0 0 20px;
+                display: none;
             }
 
             .st-key-login_card label {
                 color: var(--navy) !important;
                 font-weight: 850;
-                font-size: 0.86rem;
+                font-size: 0.78rem;
             }
 
             .st-key-login_card input,
             .st-key-login_card div[data-baseweb="select"] > div {
-                min-height: 2.28rem;
-                border-radius: 14px;
-                font-size: 0.9rem;
+                min-height: 2.05rem;
+                border-radius: 12px;
+                font-size: 0.84rem;
             }
 
             .st-key-login_card div[data-testid="stFormSubmitButton"] button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.28rem;
-                font-size: 0.9rem;
+                min-height: 2.05rem;
+                font-size: 0.84rem;
                 margin-top: 0;
-                border-radius: 14px;
+                border-radius: 12px;
             }
 
             .st-key-login_card div[data-testid="stFormSubmitButton"] button[kind="primary"],
@@ -3006,9 +3004,9 @@ def load_css() -> None:
             .st-key-login_form_panel div.stButton > button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.28rem;
-                font-size: 0.9rem;
-                border-radius: 14px;
+                min-height: 2.05rem;
+                font-size: 0.84rem;
+                border-radius: 12px;
                 background: #ffffff !important;
                 color: var(--green-dark) !important;
                 border: 1px solid #b8d1c4 !important;
@@ -3028,8 +3026,8 @@ def load_css() -> None:
                 gap: 0.8rem;
                 color: var(--muted);
                 font-weight: 850;
-                font-size: 0.82rem;
-                margin: 14px 0 12px;
+                font-size: 0.76rem;
+                margin: 10px 0 8px;
             }
 
             .login-divider::before,
@@ -3043,10 +3041,10 @@ def load_css() -> None:
             .login-helper {
                 background: var(--soft);
                 border: 1px solid var(--line);
-                border-radius: 12px;
-                padding: 0.34rem 0.5rem;
+                border-radius: 10px;
+                padding: 0.28rem 0.46rem;
                 color: var(--muted);
-                font-size: 0.72rem;
+                font-size: 0.66rem;
                 line-height: 1.22;
                 margin-top: 0.1rem;
             }
@@ -6229,14 +6227,12 @@ def login_page() -> None:
                     """
                     <span class="login-card-marker"></span>
                     <h1 class="login-system-title">Marketing Collaboration System</h1>
-                    <p class="login-subtitle">
-                        Campaign planning, shared assets, and department updates in one workspace.
-                    </p>
+                    <p class="login-subtitle">Campaign planning, shared assets, and department updates in one workspace.</p>
                     """,
                     unsafe_allow_html=True,
                 )
                 with st.form("login-form"):
-                    email = st.text_input("Email", placeholder="name@bgc.ca")
+                    email = st.text_input("Username", placeholder="name@bgc.ca")
                     password = st.text_input("Password", type="password", placeholder="test")
                     department = st.selectbox("Department", DEPARTMENTS)
                     submitted = st.form_submit_button("Log in", type="primary")
