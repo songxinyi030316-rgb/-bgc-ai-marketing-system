@@ -2790,10 +2790,10 @@ def load_css() -> None:
             }
 
             .stHorizontalBlock.st-key-login_card {
-                width: min(1120px, calc(100vw - 32px)) !important;
+                width: min(1160px, calc(100vw - 36px)) !important;
                 max-width: calc(100vw - 32px);
-                height: 600px !important;
-                min-height: 600px !important;
+                height: 620px !important;
+                min-height: 620px !important;
                 background: #ffffff !important;
                 border: 1px solid #E5ECE7 !important;
                 border-radius: 32px !important;
@@ -2804,7 +2804,7 @@ def load_css() -> None:
                 z-index: 1;
                 margin: 0 auto !important;
                 display: grid !important;
-                grid-template-columns: 1.05fr 0.95fr;
+                grid-template-columns: 1.1fr 0.9fr;
                 align-items: stretch !important;
                 gap: 0 !important;
                 overflow: hidden !important;
@@ -2818,8 +2818,8 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:first-child {
                 align-self: stretch !important;
-                height: 600px !important;
-                min-height: 600px !important;
+                height: 620px !important;
+                min-height: 620px !important;
                 background: #ffffff !important;
                 display: flex !important;
                 align-items: center !important;
@@ -2831,9 +2831,9 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:nth-child(2) {
                 align-self: stretch !important;
-                height: 600px !important;
-                min-height: 600px !important;
-                padding: 34px 42px 28px !important;
+                height: 620px !important;
+                min-height: 620px !important;
+                padding: 52px 54px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -2843,30 +2843,35 @@ def load_css() -> None:
                 box-shadow: -14px 0 36px rgba(16, 47, 52, 0.035) !important;
             }
 
-            .st-key-login_hero_image img {
+            .login-hero-img {
                 width: 100% !important;
                 height: 100% !important;
                 max-height: none !important;
                 object-fit: cover !important;
                 object-position: center !important;
                 display: block !important;
-                background: #ffffff;
+                background: #ffffff !important;
             }
 
-            .st-key-login_hero_image,
-            .st-key-login_hero_image [data-testid="stImage"] {
+            .login-hero-fill {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 600px !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
+                min-height: 620px !important;
+                display: block !important;
+                overflow: hidden !important;
+                background: #ffffff !important;
+            }
+
+            .st-key-login_hero_image {
+                width: 100% !important;
+                height: 100% !important;
+                min-height: 620px !important;
                 background: #ffffff !important;
             }
 
             .st-key-login_form_panel {
                 width: 100% !important;
-                max-width: 420px !important;
+                max-width: 410px !important;
                 overflow: visible !important;
                 margin-top: 0 !important;
             }
@@ -2935,18 +2940,18 @@ def load_css() -> None:
 
             .login-system-title {
                 color: var(--navy) !important;
-                margin: 0 0 8px !important;
-                font-size: 26px;
-                line-height: 1.08;
+                margin: 0 0 12px !important;
+                font-size: 30px;
+                line-height: 1.1;
                 letter-spacing: 0;
                 font-weight: 800;
             }
 
             .login-subtitle {
                 color: var(--muted) !important;
-                font-size: 0.84rem;
-                line-height: 1.28;
-                margin: 0 0 12px;
+                font-size: 0.9rem;
+                line-height: 1.35;
+                margin: 0 0 20px;
             }
 
             .st-key-login_card label {
@@ -2957,7 +2962,7 @@ def load_css() -> None:
 
             .st-key-login_card input,
             .st-key-login_card div[data-baseweb="select"] > div {
-                min-height: 2.12rem;
+                min-height: 2.28rem;
                 border-radius: 14px;
                 font-size: 0.9rem;
             }
@@ -2965,7 +2970,7 @@ def load_css() -> None:
             .st-key-login_card div[data-testid="stFormSubmitButton"] button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.14rem;
+                min-height: 2.28rem;
                 font-size: 0.9rem;
                 margin-top: 0;
                 border-radius: 14px;
@@ -2989,7 +2994,7 @@ def load_css() -> None:
             .st-key-login_form_panel div.stButton > button {
                 width: 100%;
                 justify-content: center;
-                min-height: 2.14rem;
+                min-height: 2.28rem;
                 font-size: 0.9rem;
                 border-radius: 14px;
                 background: #ffffff !important;
@@ -3012,7 +3017,7 @@ def load_css() -> None:
                 color: var(--muted);
                 font-weight: 850;
                 font-size: 0.82rem;
-                margin: 10px 0 9px;
+                margin: 14px 0 12px;
             }
 
             .login-divider::before,
@@ -6187,7 +6192,26 @@ def login_page() -> None:
     with st.container(key="login_page"):
         with st.container(key="login_card", horizontal=True, gap=None, vertical_alignment="center"):
             with st.container(key="login_hero_image"):
-                st.image("assets/login_hero.png", use_container_width=True)
+                image_path = Path("assets/login_hero.png")
+                if image_path.exists():
+                    encoded = base64.b64encode(image_path.read_bytes()).decode("utf-8")
+                    st.markdown(
+                        f"""
+                        <div class="login-hero-fill">
+                            <img class="login-hero-img" src="data:image/png;base64,{encoded}" alt="BGC London login hero">
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.markdown(
+                        """
+                        <div class="login-hero-fill" style="display:flex!important;align-items:center;justify-content:center;color:#607276;font-weight:800;">
+                            BGC London
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
             with st.container(key="login_form_panel"):
                 st.markdown(
                     """
