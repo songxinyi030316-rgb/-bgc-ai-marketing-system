@@ -2790,10 +2790,10 @@ def load_css() -> None:
             }
 
             .stHorizontalBlock.st-key-login_card {
-                width: min(1160px, calc(100vw - 36px)) !important;
+                width: min(1240px, calc(100vw - 36px)) !important;
                 max-width: calc(100vw - 32px);
-                height: 620px !important;
-                min-height: 620px !important;
+                height: 560px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
                 border: 1px solid #E5ECE7 !important;
                 border-radius: 32px !important;
@@ -2804,7 +2804,7 @@ def load_css() -> None:
                 z-index: 1;
                 margin: 0 auto !important;
                 display: grid !important;
-                grid-template-columns: 1.1fr 0.9fr;
+                grid-template-columns: 1.95fr 1fr;
                 align-items: stretch !important;
                 gap: 0 !important;
                 overflow: hidden !important;
@@ -2818,8 +2818,8 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:first-child {
                 align-self: stretch !important;
-                height: 620px !important;
-                min-height: 620px !important;
+                height: 560px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
                 display: flex !important;
                 align-items: center !important;
@@ -2831,9 +2831,9 @@ def load_css() -> None:
 
             .stHorizontalBlock.st-key-login_card > div:nth-child(2) {
                 align-self: stretch !important;
-                height: 620px !important;
-                min-height: 620px !important;
-                padding: 52px 54px !important;
+                height: 560px !important;
+                min-height: 560px !important;
+                padding: 42px 44px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -2856,7 +2856,7 @@ def load_css() -> None:
             .login-hero-fill {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 620px !important;
+                min-height: 560px !important;
                 display: block !important;
                 overflow: hidden !important;
                 background: #ffffff !important;
@@ -2865,8 +2865,20 @@ def load_css() -> None:
             .st-key-login_hero_image {
                 width: 100% !important;
                 height: 100% !important;
-                min-height: 620px !important;
+                min-height: 560px !important;
                 background: #ffffff !important;
+            }
+
+            .st-key-login_hero_image [data-testid="stMarkdownContainer"],
+            .st-key-login_hero_image [data-testid="stMarkdown"] {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            .st-key-login_hero_image p {
+                width: 100% !important;
+                height: 100% !important;
+                margin: 0 !important;
             }
 
             .st-key-login_form_panel {
