@@ -515,13 +515,13 @@ def load_css() -> None:
 
             .workflow-topbar-shell {
                 background:
-                    radial-gradient(circle at 96% 18%, rgba(255, 210, 52, 0.22), transparent 20%),
-                    linear-gradient(135deg, #ffffff 0%, #f7fbf8 72%, #fffaf0 100%);
+                    radial-gradient(circle at 96% 18%, rgba(255, 210, 52, 0.20), transparent 21%),
+                    linear-gradient(135deg, #ffffff 0%, #f8fbf8 68%, #fff9df 100%);
                 border: 1px solid #dfe8e4;
-                border-radius: 22px;
-                padding: 1rem 1.05rem 1.1rem;
-                margin: 0 0 1.15rem;
-                box-shadow: 0 16px 36px rgba(16, 49, 58, 0.075);
+                border-radius: 26px;
+                padding: 1.05rem 1.15rem 1.05rem;
+                margin: 0 0 1rem;
+                box-shadow: 0 18px 44px rgba(16, 49, 58, 0.075);
             }
 
             .workflow-topbar-title {
@@ -559,77 +559,109 @@ def load_css() -> None:
             }
 
             .workflow-top-active {
-                min-height: 86px;
-                border-radius: 18px;
-                background: linear-gradient(135deg, #2f7a55 0%, #1f6f4a 100%);
+                min-height: 116px;
+                border-radius: 22px;
+                background:
+                    radial-gradient(circle at 88% 18%, rgba(255, 211, 82, 0.26), transparent 28%),
+                    linear-gradient(135deg, #2f7a55 0%, #1f6f4a 100%);
                 color: #ffffff;
                 border: 1px solid #2f7a55;
-                padding: 0.72rem 0.78rem;
-                box-shadow: 0 12px 24px rgba(31, 111, 74, 0.18);
+                padding: 0.92rem 0.9rem;
+                box-shadow: 0 18px 34px rgba(31, 111, 74, 0.22);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .workflow-top-active::after {
+                content: "Current step";
+                position: absolute;
+                right: 0.72rem;
+                top: 0.66rem;
+                background: rgba(255, 255, 255, 0.18);
+                border: 1px solid rgba(255, 255, 255, 0.26);
+                color: #ffffff;
+                font-size: 0.54rem;
+                font-weight: 900;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                border-radius: 999px;
+                padding: 0.18rem 0.42rem;
             }
 
             .workflow-top-active .workflow-top-number {
                 background: rgba(255, 255, 255, 0.18);
                 color: #ffffff;
+                border-color: rgba(255, 255, 255, 0.24);
             }
 
             .workflow-top-number {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 26px;
-                height: 26px;
+                width: 31px;
+                height: 31px;
                 border-radius: 999px;
                 background: #eaf6ee;
                 color: var(--green-dark);
-                font-size: 0.72rem;
+                border: 1px solid #cfe6d8;
+                font-size: 0.82rem;
                 font-weight: 950;
-                margin-bottom: 0.35rem;
+                margin-bottom: 0.58rem;
             }
 
             .workflow-top-label {
-                font-size: 0.9rem;
+                font-size: 1.02rem;
                 font-weight: 950;
-                line-height: 1.08;
+                line-height: 1.05;
                 white-space: nowrap;
+                letter-spacing: -0.01em;
             }
 
             .workflow-top-helper {
-                font-size: 0.7rem;
-                font-weight: 750;
-                color: rgba(255, 255, 255, 0.86);
+                font-size: 0.76rem;
+                font-weight: 780;
+                color: rgba(255, 255, 255, 0.88);
                 line-height: 1.22;
-                margin-top: 0.2rem;
+                margin-top: 0.3rem;
+                max-width: 11rem;
             }
 
             div[class*="st-key-workflow_top_"] button {
-                min-height: 86px !important;
+                min-height: 116px !important;
                 width: 100% !important;
-                border-radius: 18px !important;
-                padding: 0.7rem 0.55rem !important;
-                background: #ffffff !important;
-                border: 1px solid #dfe8e4 !important;
-                color: #16343a !important;
-                box-shadow: 0 8px 18px rgba(16, 49, 58, 0.045) !important;
+                border-radius: 22px !important;
+                padding: 0.86rem 0.88rem !important;
+                background:
+                    radial-gradient(circle at 90% 16%, rgba(255, 211, 82, 0.13), transparent 27%),
+                    linear-gradient(145deg, #ffffff 0%, #f8fbf9 100%) !important;
+                border: 1px solid #dce8e2 !important;
+                border-top: 4px solid #cfe6d8 !important;
+                color: #17343a !important;
+                box-shadow: 0 12px 24px rgba(16, 49, 58, 0.06) !important;
                 text-align: left !important;
+                transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease !important;
             }
 
             div[class*="st-key-workflow_top_"] button:hover {
-                background: #eef8f2 !important;
+                background:
+                    radial-gradient(circle at 90% 16%, rgba(255, 211, 82, 0.18), transparent 28%),
+                    linear-gradient(145deg, #f4fbf7 0%, #ffffff 100%) !important;
                 border-color: #b9d9c6 !important;
+                border-top-color: #2f7a55 !important;
                 color: #145c3b !important;
-                box-shadow: 0 10px 22px rgba(16, 49, 58, 0.06) !important;
+                box-shadow: 0 16px 30px rgba(16, 49, 58, 0.085) !important;
             }
 
             div[class*="st-key-workflow_top_"] button p {
-                font-size: 0.84rem !important;
+                font-size: 0.88rem !important;
                 line-height: 1.18 !important;
                 font-weight: 900 !important;
                 margin: 0 !important;
                 white-space: pre-line !important;
+                letter-spacing: -0.01em !important;
             }
 
             .command-header {
