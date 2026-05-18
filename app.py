@@ -5258,6 +5258,8 @@ CONTENT_VARIATIONS = {
 def asset_score(program: dict) -> int:
     """Score asset readiness using mock asset availability and quality."""
 
+    if "asset_readiness_score" in program:
+        return int(program["asset_readiness_score"])
     base = {"High": 95, "Medium": 76, "Quick phone photo": 62}.get(program["asset_quality"], 40)
     if "Videos" in program["assets"]:
         base += 3
@@ -5269,6 +5271,8 @@ def asset_score(program: dict) -> int:
 def urgency_score(program: dict) -> int:
     """Score urgency from deadline and priority label."""
 
+    if "urgency_score" in program:
+        return int(program["urgency_score"])
     days_until = max((program["date"] - TODAY).days, 1)
     date_score = max(45, 100 - days_until * 2)
     if program["urgency"] == "High":
@@ -5279,6 +5283,8 @@ def urgency_score(program: dict) -> int:
 def recommendation_score(program: dict) -> int:
     """Mock AI score combining timing, assets, performance, fit, and mission."""
 
+    if "recommendation_score" in program:
+        return int(program["recommendation_score"])
     return round(
         urgency_score(program) * 0.22
         + asset_score(program) * 0.18
@@ -5294,109 +5300,68 @@ def ranked_programs() -> list[dict]:
     return sorted(PROGRAMS, key=recommendation_score, reverse=True)
 
 
-def realistic_campaign_name(raw_name: str, segment: str = "Youth", goal: str = "Awareness") -> str:
-    """Avoid placeholder campaign names in the demo workflow."""
+def custom_campaign_scores(brief: dict, campaign_name: str) -> dict:
+    """Score staff-submitted briefs by completeness instead of assuming launch readiness."""
 
-    cleaned = (raw_name or "").strip()
-    placeholder_names = {"test", "testing", "demo", "abc", "asdf", "123", "untitled", "untitled campaign brief"}
-    if cleaned.lower() not in placeholder_names:
-        return cleaned
+    placeholder_names = {"test", "testing", "demo", "abc", "asdf", "123", "new", "sample"}
+    default_message = "a welcoming bgc london program that creates belonging, support, and opportunity"
+    name_text = (campaign_name or "").strip().lower()
+    key_message = (brief.get("key_message") or "").strip()
+    message_text = key_message.lower()
+    assets = brief.get("available_assets") or []
+    audience = brief.get("target_audience") or []
+    quality = brief.get("asset_quality", "Medium")
+    urgency = brief.get("urgency", "Medium")
 
-    segment_defaults = {
-        "Children": "After-School Confidence & Safety Campaign",
-        "Youth": "Youth Future Pathways Campaign",
-        "50+": "50+ Connection & Wellness Campaign",
-        "Inclusion": "Inclusive Belonging Community Campaign",
-        "Supper Club": "Supper Club Community Table Campaign",
-        "MAP": "MAP Education Support Campaign",
-        "DCAC": "Youth Creator Showcase Campaign",
-        "Sports": "Sports Belonging & Teamwork Campaign",
-    }
-    if goal == "Volunteer recruitment":
-        return "Community Volunteer Recruitment Campaign"
-    if goal == "Donor support":
-        return "Donor Impact Storytelling Campaign"
-    if goal == "Partner update":
-        return "Partner Referral Awareness Campaign"
-    return segment_defaults.get(segment, "BGC Community Belonging Campaign")
+    name_quality = 18 if name_text in placeholder_names or len(name_text) < 6 else 72 if len(name_text) < 16 else 86
+    message_quality = 24 if not key_message or message_text.startswith(default_message) or len(key_message) < 55 else 72 if len(key_message) < 110 else 88
+    audience_quality = 42 if not audience else 58 if set(audience) == {"Young parents", "Community"} and message_quality < 50 else min(88, 55 + len(audience) * 9)
 
+    if not assets or "None" in assets:
+        asset_readiness = 26
+    else:
+        asset_readiness = {"High": 72, "Medium": 62, "Quick phone photo": 48}.get(quality, 52)
+        if "Videos" in assets:
+            asset_readiness += 8
+        if "Testimonials" in assets:
+            asset_readiness += 10
+        if message_quality < 50 or name_quality < 40:
+            asset_readiness = min(asset_readiness, 52)
+    asset_readiness = min(asset_readiness, 96)
 
-def campaign_intelligence_for_brief(brief: dict) -> dict:
-    """Create realistic mock campaign intelligence from intake fields."""
+    urgency_value = {"Low": 48, "Medium": 62, "High": 74}.get(urgency, 58)
+    if name_quality < 40 or message_quality < 50:
+        urgency_value = min(urgency_value, 58)
 
-    segment = brief.get("segment", "Youth")
-    goal = brief.get("goal", "Awareness")
-    audience_items = brief.get("target_audience") or ["Community", "Families"]
-    assets = brief.get("available_assets") or ["Photos"]
-    has_video = "Videos" in assets
-    has_testimonial = "Testimonials" in assets
+    past_signal = round((name_quality * 0.25) + (message_quality * 0.35) + (asset_readiness * 0.2) + 18)
+    mission_alignment = round(58 + (message_quality * 0.25) + (18 if brief.get("segment") in ["Children", "Youth", "MAP", "Supper Club"] else 10))
+    mission_alignment = min(mission_alignment, 94)
+    overall = round(
+        urgency_value * 0.18
+        + asset_readiness * 0.22
+        + past_signal * 0.18
+        + audience_quality * 0.2
+        + mission_alignment * 0.22
+    )
 
-    segment_profiles = {
-        "Children": {
-            "proof": "Safe after-school routines, caring staff, and parent-friendly registration support",
-            "angle": "Help families see BGC as a trusted after-school place where children are safe, active, known by name, and supported after the school day.",
-            "required_assets": "Activity photo set, parent-facing CTA, staff safety quote",
-            "channels": ["Facebook", "Instagram", "Newsletter", "Partners"],
-        },
-        "Youth": {
-            "proof": "Mentorship, leadership opportunities, and youth confidence-building stories",
-            "angle": "Show how BGC helps youth build confidence, belonging, practical skills, and a stronger sense of future direction.",
-            "required_assets": "Youth story, mentor quote, short video moment",
-            "channels": ["Instagram", "Facebook", "Newsletter", "Partners"],
-        },
-        "MAP": {
-            "proof": "$1,000/year scholarship support, tutoring, and goal-setting mentorship",
-            "angle": "Connect education support to confidence, long-term goals, and the practical encouragement youth need to keep moving forward.",
-            "required_assets": "Student success story, scholarship proof point visual, caregiver quote",
-            "channels": ["Instagram", "Facebook", "Newsletter", "Partners"],
-        },
-        "Supper Club": {
-            "proof": "Community meals, volunteer participation, and welcoming shared-table moments",
-            "angle": "Position Supper Club as more than a meal: a warm community connection point where neighbours feel welcomed and supported.",
-            "required_assets": "Real meal photos, volunteer quote, simple referral CTA",
-            "channels": ["Facebook", "Newsletter", "Instagram", "Partners"],
-        },
-        "DCAC": {
-            "proof": "Youth-created media projects and digital skill-building workshops",
-            "angle": "Show the creative transformation from first idea to finished project, with youth voice at the center.",
-            "required_assets": "Before/after project clip, youth creator quote, workshop b-roll",
-            "channels": ["Instagram", "YouTube", "LinkedIn", "Partners"],
-        },
-        "Sports": {
-            "proof": "Teamwork, movement, coach encouragement, and access to recreation",
-            "angle": "Make sports feel like belonging, confidence, and healthy routine rather than only competition.",
-            "required_assets": "Team huddle clip, coach quote, action photo",
-            "channels": ["Instagram", "Facebook", "Partners", "Newsletter"],
-        },
-        "50+": {
-            "proof": "Wellness routines, social connection, and transportation/community access",
-            "angle": "Help older adults and caregivers see BGC as a welcoming connection point for routine, wellness, and community.",
-            "required_assets": "Program calendar, participant-friendly photo, wellness testimonial",
-            "channels": ["Newsletter", "Facebook", "Local Media Pitch", "Partners"],
-        },
-        "Inclusion": {
-            "proof": "Barrier-aware programming, accessible participation, and partner-supported belonging",
-            "angle": "Show inclusion as practical access, dignity, and a community where more people can participate fully.",
-            "required_assets": "Consent-safe program photo, partner quote, accessibility note",
-            "channels": ["LinkedIn", "Facebook", "Newsletter", "Partners"],
-        },
-    }
-    profile = segment_profiles.get(segment, segment_profiles["Youth"])
-
-    if goal == "Registration":
-        profile = {**profile, "angle": f"{profile['angle']} Make the next step clear for families and participants who are ready to register."}
-    elif goal == "Volunteer recruitment":
-        profile = {**profile, "angle": f"{profile['angle']} Add a volunteer-facing message that shows how one shift can create a real local moment."}
-    elif goal == "Donor support":
-        profile = {**profile, "angle": f"{profile['angle']} Lead with a human outcome and connect it to a donor-ready proof point."}
-    elif goal == "Partner update":
-        profile = {**profile, "angle": f"{profile['angle']} Frame the update for referral partners and community organizations that can help extend reach."}
+    missing = []
+    if name_quality < 40:
+        missing.append("specific campaign name")
+    if message_quality < 50:
+        missing.append("clear story or outcome")
+    if asset_readiness < 60:
+        missing.append("confirmed photos/video/testimonial")
+    if audience_quality < 65:
+        missing.append("more precise audience")
 
     return {
-        **profile,
-        "past_engagement": 91 if has_video or has_testimonial else 86,
-        "mission_alignment": 94 if goal in ["Donor support", "Partner update"] else 92,
-        "audience_fit": 93 if any(audience in audience_items for audience in ["Young parents", "Youth", "Donors"]) else 89,
+        "urgency_score": urgency_value,
+        "asset_readiness_score": asset_readiness,
+        "past_engagement": max(42, min(past_signal, 90)),
+        "audience_fit": max(38, min(audience_quality, 92)),
+        "mission_alignment": max(55, mission_alignment),
+        "recommendation_score": max(32, min(overall, 94)),
+        "missing_inputs": missing,
     }
 
 
@@ -5408,23 +5373,25 @@ def custom_program_from_state() -> dict | None:
     intake_name = st.session_state.get("intake_program_name", "").strip()
     if not selected_name and not intake_name:
         return None
-    latest_brief = st.session_state.get("latest_intake_brief", {})
-    campaign_name = realistic_campaign_name(
-        selected_name or intake_name,
-        latest_brief.get("segment", "Youth"),
-        latest_brief.get("goal", "Awareness"),
-    )
+    campaign_name = selected_name or intake_name
     if campaign_name in known_names:
         return None
 
+    latest_brief = st.session_state.get("latest_intake_brief", {})
     assets = latest_brief.get("available_assets") or ["Photos"]
     if "None" in assets:
         assets = []
     audience_items = latest_brief.get("target_audience") or ["Community", "Families"]
     goal = latest_brief.get("goal", "Awareness")
-    intelligence = campaign_intelligence_for_brief(latest_brief)
-    staff_message = latest_brief.get("key_message", "").strip()
-    angle = intelligence["angle"] if not staff_message or staff_message.lower().startswith("a welcoming bgc london program") else f"{intelligence['angle']} Staff note: {staff_message}"
+    key_message = latest_brief.get("key_message") or "A BGC London program update ready for community storytelling."
+    score_data = custom_campaign_scores(latest_brief, campaign_name)
+    missing = score_data["missing_inputs"]
+    angle = key_message
+    if missing:
+        angle = f"{key_message} AI confidence is limited because the brief still needs {', '.join(missing)}."
+    required_assets = "Program photo, staff quote, clear next step"
+    if missing:
+        required_assets = "Needed before launch: " + ", ".join(missing)
 
     return {
         "name": campaign_name,
@@ -5434,13 +5401,16 @@ def custom_program_from_state() -> dict | None:
         "urgency": latest_brief.get("urgency", "High"),
         "assets": assets or ["Photos"],
         "asset_quality": latest_brief.get("asset_quality", "Medium"),
-        "past_engagement": intelligence["past_engagement"],
-        "mission_alignment": intelligence["mission_alignment"],
-        "audience_fit": intelligence["audience_fit"],
-        "proof": intelligence["proof"],
+        "past_engagement": score_data["past_engagement"],
+        "mission_alignment": score_data["mission_alignment"],
+        "audience_fit": score_data["audience_fit"],
+        "asset_readiness_score": score_data["asset_readiness_score"],
+        "urgency_score": score_data["urgency_score"],
+        "recommendation_score": score_data["recommendation_score"],
+        "proof": "Staff-submitted intake brief; confidence depends on completeness",
         "angle": angle,
-        "required_assets": intelligence["required_assets"],
-        "channels": intelligence["channels"] if goal != "Partner update" else ["LinkedIn", "Newsletter", "Partners"],
+        "required_assets": required_assets,
+        "channels": ["Instagram", "Facebook", "Newsletter", "Partners"] if goal != "Partner update" else ["LinkedIn", "Newsletter", "Partners"],
     }
 
 
@@ -5487,15 +5457,6 @@ def init_state() -> None:
         st.session_state.intake_program_name = st.session_state.selected_campaign
     if "latest_intake_brief" not in st.session_state:
         st.session_state.latest_intake_brief = {}
-    normalized_current = realistic_campaign_name(
-        st.session_state.selected_campaign,
-        st.session_state.latest_intake_brief.get("segment", "Youth"),
-        st.session_state.latest_intake_brief.get("goal", "Awareness"),
-    )
-    if normalized_current != st.session_state.selected_campaign:
-        st.session_state.selected_campaign = normalized_current
-        st.session_state.intake_program_name = normalized_current
-        st.session_state.latest_intake_brief["program_name"] = normalized_current
     if "planner_items" not in st.session_state:
         st.session_state.planner_items = ["MAP scholarship post", "After-school parent post"]
     if "active_page" not in st.session_state:
@@ -5669,11 +5630,11 @@ TEAM_WORKSPACE_PAGES = [
 WORKFLOW_TOPBAR_PAGES = [
     ("1", "Intake", "Program & Asset Intake", "Program update + assets"),
     ("2", "Recommend", "AI Campaign Recommendation", "Best campaign to run"),
-    ("3A", "Ideas", "AI Viral Content Engine", "Hooks + short-form ideas"),
-    ("3B", "Drafts", "AI Content Studio", "Copy + scoring"),
-    ("4", "Plan", "Campaign Planner", "Schedule + outreach"),
-    ("5A", "Trends", "Trend & Performance Scan", "Signals + opportunities"),
-    ("5B", "Impact", "Impact Dashboard", "Results + donor proof"),
+    ("3", "Explore Ideas", "AI Viral Content Engine", "Hooks + short-form strategy"),
+    ("4", "Draft Content", "AI Content Studio", "Copy + scoring"),
+    ("5", "Plan", "Campaign Planner", "Schedule + outreach"),
+    ("6", "Scan Trends", "Trend & Performance Scan", "Signals + opportunities"),
+    ("7", "Measure Impact", "Impact Dashboard", "Results + donor proof"),
 ]
 
 MARKETING_NAV_SECTIONS = [
@@ -6691,6 +6652,8 @@ def intake_page() -> None:
         st.markdown("### Internal Campaign Brief")
         st.markdown('<div class="form-section-title">Program Basics</div>', unsafe_allow_html=True)
         program_name = st.text_input("Program name", key="intake_program_name")
+        if program_name.strip():
+            st.session_state.selected_campaign = program_name.strip()
         st.markdown('<div class="helper-text">Use the public-facing program name staff and families recognize.</div>', unsafe_allow_html=True)
         basic_cols = st.columns(2)
         with basic_cols[0]:
@@ -6724,11 +6687,8 @@ def intake_page() -> None:
         with asset_cols[1]:
             urgency = st.select_slider("Urgency level", options=["Low", "Medium", "High"], value="High")
         st.markdown('<div class="helper-text">Higher quality visuals and testimonials improve campaign confidence.</div>', unsafe_allow_html=True)
-        display_program_name = realistic_campaign_name(program_name, segment, goal)
-        if display_program_name:
-            st.session_state.selected_campaign = display_program_name
         current_brief = {
-            "program_name": display_program_name or "BGC Community Belonging Campaign",
+            "program_name": program_name.strip() or "Untitled campaign brief",
             "segment": segment,
             "activity_timing": activity,
             "program_date": program_date,
